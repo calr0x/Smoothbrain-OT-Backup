@@ -40,9 +40,26 @@ else
   exit 1
 fi
 
-read -p "If you are installing the backups using ansible then you are finished. Press "y" to exit..." -n 1 -r
-if $REPLY =~ ^[Yy]$ ]]; then
-  exit 1
+read -p "Are you running multiple servers and will be using ansible to deploy the backup software? Press "y" for yes and "n" for no...${N1}${N1}" -n 1 -r
+if [[ $REPLY =~ ^[Yy]$ ]]; then
+  read -p "${N1}Are you logging in as root? Press "y" if yes and "n" if logging in as a non-root user...${N1}" -n 1 -r
+  if [[ $REPLY =~ ^[Yy]$ ]]; then
+    read -p "${N1}Do you log in as root using a password? Press "y" for yes and "n" if you use a ssh key...${N1}" -n 1 -r
+    if [[ $REPLY =~ ^[Yy]$ ]]; then
+      ansible-playbook -k ansible/ansible-install-restic.yml
+    else
+      ansible-playbook ansible/ansible-install-restic.yml
+    fi
+  else
+    read -p "${N1}Do you log in as non-root using a password? Press "y" for yes and "n" if you use a ssh key...${N1}" -n 1 -r
+    if [[ $REPLY =~ ^[Yy]$ ]]; then
+      ansible-playbook -u ADD_USERNAME -k -K -b ansible/ansible-install-restic.yml
+    else
+      ansible-playbook -u ADD_USERNAME -K -b ansible/ansible-install-restic.yml
+    fi
+  fi
+else
+  echo "Continuing with single-server installation... (peasant)"
 fi
 
 echo "Adding 6-hour schedule to cron"
@@ -50,7 +67,7 @@ echo "Adding 6-hour schedule to cron"
 
 read -p "Press "y" to perform an initial backup now or "n" to exit the installer. The backup IS scheduled to be\
  performed at the next 6am/12pm/6pm/12am time (based on servertime)" -n 1 -r
-if $REPLY =~ ^[Yy]$ ]]; then
+if [[ $REPLY =~ ^[Yy]$ ]]; then
   /root/Smoothbrain-OT-Backup/restic-backup.sh
 else
   echo "Thank you for choosing Smoothbrain OT Backup! Now with more Smoothbrain!"
