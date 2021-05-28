@@ -72,10 +72,5 @@
         weekday: "*"
         job: "/root/restic/restic-backup.sh"
 
-    - name: Create repo
-      command:
-        chdir: /root/Smoothbrain-OT-Backup/
-        cmd: restic --init
-
     - name: Execute initial backup
       shell: /root/restic/restic-backup.sh
