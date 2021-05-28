@@ -1,0 +1,10 @@
+---
+
+- name: Test script for restic cleanup
+  hosts: all
+  gather_facts: no
+  serial: 1
+
+  tasks:
+    - name: Execute restic cleanup
+      shell: /root/restic/restic-cleanup.sh

@@ -1,0 +1,76 @@
+---
+
+- name: Install and configure Restic backups for OriginTrail nodes...
+  hosts: all
+  gather_facts: no
+
+  tasks:
+    - name: Copying the restic application
+      copy:
+        src: ~/OT-Ansible-Files-and-Playbooks/restic/restic
+        dest: /root/restic/
+        owner: root
+        group: root
+        mode: '0700'
+
+    - name: Create restic folder in /root
+      file:
+        path: /root/restic
+        state: directory
+        mode: '0600'
+
+    - name: Copy docker folder link script file to server
+      copy:
+        src: ~/OT-Ansible-Files-and-Playbooks/restic/link-merged.sh
+        dest: /root/restic/
+        owner: root
+        group: root
+        mode: '0700'
+
+    - name: Link merged directory to host
+      shell: ~/restic/link-merged.sh
+
+    - name: Copy restic-backup file to server
+      copy:
+        src: ~/OT-Ansible-Files-and-Playbooks/restic/restic-backup.sh
+        dest: /root/restic/
+        owner: root
+        group: root
+        mode: '0700'
+
+    - name: Copy send.sh file to server
+      copy:
+        src: ~/OT-Ansible-Files-and-Playbooks/restic/send.sh
+        dest: /root/restic/
+        owner: root
+        group: root
+        mode: '0700'
+
+    - name: Copy restic-cleanup file to server
+      copy:
+        src: ~/OT-Ansible-Files-and-Playbooks/restic/restic-cleanup.sh
+        dest: /root/restic/
+        owner: root
+        group: root
+        mode: '0700'
+
+    - name: Copy restic config file to server
+      copy:
+        src: ~/OT-Ansible-Files-and-Playbooks/restic/config.sh
+        dest: /root/restic/
+        owner: root
+        group: root
+        mode: '0600'
+
+    - name: Add backup schedule to cron (every 6 hours)
+      cron:
+        name: "Restic backup"
+        minute: "0"
+        hour: "*/6"
+        day: "*"
+        month: "*"
+        weekday: "*"
+        job: "/root/restic/restic-backup.sh"
+
+    - name: Execute initial backup
+      shell: /root/restic/restic-backup.sh

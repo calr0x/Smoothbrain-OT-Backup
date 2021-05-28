@@ -1,0 +1,30 @@
+https://api.telegram.org/bot1829852282:AAF7yXpdcq3E54CpVDD-_R3a5KZDyGIkMPQ/sendMessage?chat_id=1876144359&text=TEST_MESSAGE
+
+######################################
+# Begin Backup steps
+docker exec otnode node scripts/backup.js --config=/ot-node/.origintrail_noderc --configDir=/ot-node/data --backupDirectory=/ot-node/backup
+
+#Copy backup out of Docker
+docker cp otnode:/ot-node/backup/. ~/restic/backuptemp
+
+mv /root/restic/backuptemp/*/* /root/restic/backup/.
+
+#Backup to Amazon S3
+restic backup /root/restic/backup/*
+
+#Delete local backup folder
+rm -rf /root/restic/backup/* /root/restic/backuptemp/*
+
+#Delete Docker backup folder
+docker exec -it otnode rm -rf /ot-node/backup/
+
+docker_pat
+
+"${otpath}/ot-node/backup" restic/
+
+ln -s "$(docker inspect --format='{{.GraphDriver.Data.MergedDir}}' otnode)/ot-node/backup" restic/
+
+TEST=$(docker inspect --format='{{.GraphDriver.Data.MergedDir}}' otnode)/ot-node/backup
+
+vars:
+    HOST_COUNT: "{{ ansible_play_hosts | length }}"
