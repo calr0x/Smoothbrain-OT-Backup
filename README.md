@@ -11,4 +11,8 @@ Regular and Ansible users:
 6. chmod -R +x data/* install-restic-repo.sh restic-*
 7. ./install-restic-repo.sh
 
-Before it performs the intial backup it will ask Ansible users
+ANSIBLE USERS:
+Before it performs the intial backup it will ask if you are deploying this backup thru Ansible. It will then ask whether you login as root and whether you use a ssh key or a password. It will then execute the proper anisble command.
+
+non-ansible users:
+You are plebs. Just answer "n" to that question and it will continue the backup.
