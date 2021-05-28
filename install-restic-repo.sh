@@ -39,3 +39,20 @@ else
   echo "Init FAILED:${N1}$INIT_OUTPUT"
   exit 1
 fi
+
+read -p "If you are installing the backups using ansible then you are finished. Press "y" to exit..." -n 1 -r
+if $REPLY =~ ^[Yy]$ ]]; then
+  exit 1
+fi
+
+echo "Adding 6-hour schedule to cron"
+(crontab -l 2>/dev/null; echo "0 */6 * * * /root/Smoothbrain-OT-Backup/restic") | crontab -
+
+read -p "Press "y" to perform an initial backup now or "n" to exit the installer. The backup IS scheduled to be\
+ performed at the next 6am/12pm/6pm/12am time (based on servertime)" -n 1 -r
+if $REPLY =~ ^[Yy]$ ]]; then
+  /root/Smoothbrain-OT-Backup/restic-backup.sh
+else
+  echo "Thank you for choosing Smoothbrain OT Backup! Now with more Smoothbrain!"
+  exit 0
+fi
