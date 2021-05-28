@@ -13,7 +13,7 @@
 
     - name: Copying the restic application
       copy:
-        src: ~/OT-Ansible-Files-and-Playbooks/restic/restic
+        src: ~/Smoothbrain-OT-Backup/restic
         dest: /root/restic/
         owner: root
         group: root
@@ -21,7 +21,7 @@
 
     - name: Copy docker folder link script file to server
       copy:
-        src: ~/OT-Ansible-Files-and-Playbooks/restic/link-merged.sh
+        src: ~/Smoothbrain-OT-Backup/data/link-merged.sh
         dest: /root/restic/
         owner: root
         group: root
@@ -32,7 +32,7 @@
 
     - name: Copy restic-backup file to server
       copy:
-        src: ~/OT-Ansible-Files-and-Playbooks/restic/restic-backup.sh
+        src: ~/Smoothbrain-OT-Backup/restic-backup.sh
         dest: /root/restic/
         owner: root
         group: root
@@ -40,7 +40,7 @@
 
     - name: Copy send.sh file to server
       copy:
-        src: ~/OT-Ansible-Files-and-Playbooks/restic/send.sh
+        src: ~/Smoothbrain-OT-Backup/data/send.sh
         dest: /root/restic/
         owner: root
         group: root
@@ -48,7 +48,7 @@
 
     - name: Copy restic-cleanup file to server
       copy:
-        src: ~/OT-Ansible-Files-and-Playbooks/restic/restic-cleanup.sh
+        src: ~/Smoothbrain-OT-Backup/restic-cleanup.sh
         dest: /root/restic/
         owner: root
         group: root
@@ -56,7 +56,7 @@
 
     - name: Copy restic config file to server
       copy:
-        src: ~/OT-Ansible-Files-and-Playbooks/restic/config.sh
+        src: ~/Smoothbrain-OT-Backup/config.sh
         dest: /root/restic/
         owner: root
         group: root
@@ -71,6 +71,11 @@
         month: "*"
         weekday: "*"
         job: "/root/restic/restic-backup.sh"
+
+    - name: Create repo
+      command:
+        chdir: /root/Smoothbrain-OT-Backup/
+        cmd: restic --init
 
     - name: Execute initial backup
       shell: /root/restic/restic-backup.sh
