@@ -29,7 +29,7 @@ read -p "Press enter to continue...${N1}"
 sed -i s,REPLACE_WITH_RESTIC_REPOSITORY_PASSWORD,$REPO_PASSKEY,g config.sh
 
 echo "Initializing the S3 repository"
-INIT_OUTPUT='/root/Smoothbrain-OT-Backup/restic --init'
+INIT_OUTPUT='/root/Smoothbrain-OT-Backup/restic init'
 INIT_STATUS=$?
 echo "$INIT_OUTPUT"
 
@@ -67,7 +67,7 @@ else
 fi
 
 echo "Adding 6-hour schedule to cron"
-(crontab -l 2>/dev/null; echo "0 */6 * * * /root/Smoothbrain-OT-Backup/restic") | crontab -
+(crontab -l 2>/dev/null; echo "0 */6 * * * /root/Smoothbrain-OT-Backup/restic-backup.sh") | crontab -
 
 read -p "Press "y" to perform an initial backup now or "n" to exit the installer. The backup IS scheduled to be\
  performed at the next 6am/12pm/6pm/12am time (based on servertime)" -n 1 -r
