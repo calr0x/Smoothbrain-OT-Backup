@@ -1,0 +1,44 @@
+---
+
+- name: Install and configure Restic backups for OriginTrail nodes...
+  hosts: all
+  gather_facts: no
+
+  tasks:
+  - name: Clone Smoothbrain-OT-Backup git repository
+    git:
+      repo: 'https://github.com/calr0x/Smoothbrain-OT-Backup.git'
+      dest: /root/Smoothbrain-OT-Backup
+      force: yes
+
+  - name: Copy config file
+    copy:
+      src: config.sh
+      dest: /root/Smoothbrain-OT-Backup
+
+  - name: Set files to be executable
+    file:
+      path: '{{ item }}'
+      mode: '0700'
+    loop:
+      - '/root/Smoothbrain-OT-Backup/data/link-merged.sh'
+      - '/root/Smoothbrain-OT-Backup/data/send.sh'
+      - '/root/Smoothbrain-OT-Backup/restic'
+      - '/root/Smoothbrain-OT-Backup/restic-backup.sh'
+      - '/root/Smoothbrain-OT-Backup/restic-cleanup.sh'
+
+  - name: Link merged directory to host
+    shell: ~/Smoothbrain-OT-Backup/data/link-merged.sh
+
+  - name: Add backup schedule to cron (every 6 hours)
+    cron:
+      name: "Restic backup"
+      minute: "0"
+      hour: "*/6"
+      day: "*"
+      month: "*"
+      weekday: "*"
+      job: "/root/Smoothbrain-OT-Backup/restic-backup.sh"
+
+  - name: Execute initial backup
+    shell: /root/Smoothbrain-OT-Backup/restic-backup.sh
