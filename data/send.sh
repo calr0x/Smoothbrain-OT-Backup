@@ -1,6 +1,6 @@
 #!/bin/bash
 
-source "/root/restic/config.sh"
+source "/root/Smoothbrain-OT-Backup/config.sh"
 
 HOST=$(hostname)
 MESSAGE="$HOST: $1"
