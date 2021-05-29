@@ -8,7 +8,7 @@ Regular and Ansible users:
 3. git clone https://github.com/calr0x/Smoothbrain-OT-Backup.git
 4. cd Smoothbrain-OT-Backup
 5. nano config.sh
-6. chmod -R +x data/* install-restic-repo.sh restic-*
+6. chmod -R +x data/* install-restic-repo.sh restic restic-*
 7. ./install-restic-repo.sh
 
 ANSIBLE USERS:
