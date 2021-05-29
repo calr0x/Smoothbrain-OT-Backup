@@ -13,7 +13,7 @@
 
   - name: Copy config file
     copy:
-      src: config.sh
+      src: /root/Smoothbrain-OT-Backup/config.sh
       dest: /root/Smoothbrain-OT-Backup
 
   - name: Set files to be executable
@@ -40,5 +40,5 @@
       weekday: "*"
       job: "/root/Smoothbrain-OT-Backup/restic-backup.sh"
 
-  - name: Execute initial backup
-    shell: /root/Smoothbrain-OT-Backup/restic-backup.sh
+#  - name: Execute initial backup
+#    shell: /root/Smoothbrain-OT-Backup/restic-backup.sh
