@@ -46,19 +46,19 @@ if [[ $REPLY =~ ^[Yy]$ ]]; then
   if [[ $REPLY =~ ^[Yy]$ ]]; then
     read -p "${N1}Do you log in as root using a password? Press "y" for yes and "n" if you use a ssh key...${N1}" -n 1 -r
     if [[ $REPLY =~ ^[Yy]$ ]]; then
-      ansible-playbook -k ansible/ansible-install-restic.yml
+      echo " Run ansible-playbook -k ansible/ansible-install-restic.yml"
       exit 0
     else
-      ansible-playbook ansible/ansible-install-restic.yml
+      echo "Run ansible-playbook ansible/ansible-install-restic.yml"
       exit 0
     fi
   else
     read -p "${N1}Do you log in as non-root using a password? Press "y" for yes and "n" if you use a ssh key...${N1}" -n 1 -r
     if [[ $REPLY =~ ^[Yy]$ ]]; then
-      ansible-playbook -u ADD_USERNAME -k -K -b ansible/ansible-install-restic.yml
+      echo "Run ansible-playbook -u ADD_USERNAME -k -K -b ansible/ansible-install-restic.yml"
       exit 0
     else
-      ansible-playbook -u ADD_USERNAME -K -b ansible/ansible-install-restic.yml
+      echo "Run ansible-playbook -u ADD_USERNAME -K -b ansible/ansible-install-restic.yml"
       exit 0
     fi
   fi
