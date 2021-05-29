@@ -28,7 +28,7 @@ if [ $STATUS == 1 ]; then
 fi
 
 echo "Moving data out of dated folder into backup"
-OUTPUT=$(mv -v /root/Smoothbrain-OT-Backup/backup/202*/* /root/Smoothbrain-OT-Backup/backup/ 2>&1)
+OUTPUT=$(mv -v /root/Smoothbrain-OT-Backup/backup/202*/.* /root/Smoothbrain-OT-Backup/backup/ && mv -v /root/Smoothbrain-OT-Backup/backup/202*/* /root/Smoothbrain-OT-Backup/backup/ 2>&1)
 echo $STATUS
 if [ $STATUS == 1 ]; then
   /root/Smoothbrain-OT-Backup/data/send.sh "Moving data command FAILED${N1}$OUTPUT"
