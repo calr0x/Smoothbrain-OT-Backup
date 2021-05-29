@@ -40,5 +40,5 @@
       weekday: "*"
       job: "/root/Smoothbrain-OT-Backup/restic-backup.sh"
 
-#  - name: Execute initial backup
-#    shell: /root/Smoothbrain-OT-Backup/restic-backup.sh
+  - name: Execute initial backup
+    shell: /root/Smoothbrain-OT-Backup/restic-backup.sh
