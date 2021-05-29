@@ -1,7 +1,10 @@
 # Smoothbrain-OT-Backup
 Backup system for OriginTrail Nodes (Also supports Ansible)
 
-Regular and Ansible users:
+SINGLE-SERVER USERS:
+
+YOU WILL NEED A DIFFERENT BUCKET FOR EACH SERVER. IF YOU TRY TO USE THE SAME BUCKET YOU WILL **NOT** RUN THE WEEKLY CLEAN
+Single-server users and Ansible users:
 
 1. Login as root
 2. cd
