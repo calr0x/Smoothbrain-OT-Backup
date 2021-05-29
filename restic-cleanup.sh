@@ -4,7 +4,7 @@ N1=$'\n'
 
 echo "Removing outdated snapshots and data"
 
-FORGET_OUTPUT=`restic forget --group-by host --keep-last 1 2>&1`
+FORGET_OUTPUT=`/root/Smoothbrain-OT-Backup/restic forget --group-by host --keep-last 1 2>&1`
 FORGET_STATUS=$?
 echo "$FORGET_OUTPUT"
 
@@ -17,7 +17,7 @@ else
   exit 1
 fi
 
-PRUNE_OUTPUT=`restic prune 2>&1`
+PRUNE_OUTPUT=`/root/Smoothbrain-OT-Backup/restic prune 2>&1`
 PRUNE_STATUS=$?
 echo "$PRUNE_OUTPUT"
 
@@ -30,7 +30,7 @@ else
   exit 1
 fi
 
-CHECK_OUTPUT=`restic check 2>&1`
+CHECK_OUTPUT=`/root/Smoothbrain-OT-Backup/restic check 2>&1`
 CHECK_STATUS=$?
 echo "$CHECK_OUTPUT"
 
