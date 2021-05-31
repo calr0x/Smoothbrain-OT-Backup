@@ -31,10 +31,29 @@ ctrl+s (to save)
 ctrl+x (to exit nano)
 
 7. chmod -R +x data/* install-restic-repo.sh restic restic-*
-8. ./install-restic-repo.sh
+8. RUN THE FOLLOWING COMMAND BELOW DEPENDING ON WHETHER IT'S S3 OR B2:
 
-ANSIBLE USERS:
-Before it performs the intial backup it will ask if you are deploying this backup thru Ansible. It will then ask whether you login as root and whether you use a ssh key or a password. It will then execute the proper anisble command.
+S3:
+./restic -r s3.amazonaws.com/bucket_name_here init
 
-non-ansible users:
-You are plebs. Just answer "n" to that question and it will continue the backup.
+B2:
+./restic -r b2:bucketname:path/to/repo init
+
+***************************************************
+** ANSIBLE USERS STOP HERE                        *
+** nano ansible/ansible-install-restic.yml        *
+** READ THE TOP COMMENTS FOR FURTHER INSTRUCTIONS *
+***************************************************
+
+9. (crontab -l 2>/dev/null; echo "0 */6 * * * /root/Smoothbrain-OT-Backup/restic-backup.sh") | crontab -
+
+THE LAST COMMAND SCHEDULES A WEEKLY CLEANUP OF THE REPOSITORY TO CLEAR OLD BACKUPS. IT IS **NOT** RUN ON EVERY COMPUTER. IT MUST BE INSTALLED ON ONLY ONE NODE OR A LINUX SERVER THAT'S NOT RUNNING A NODE.
+
+IF YOU ONLY HAVE 1 NODE THEN RUN THIS COMMAND AND YOU ARE DONE. IF YOU ARE RUNNING MULTIPLE NODES AND EACH NODE HAS ITS OWN BUCKET THEN RUN THIS COMMMAND ON EACH NODE. IF YOU HAVE MULTIPLE NODES **AND** THE NODES SHARE A BUCKET THEN THIS COMMAND CAN ONLY BE RUN ON **ONE** NODE. IF YOU RUN THIS COMMAND ON MORE THAN ONE NODE IT WILL CREATE A SITUATION WHERE THE WEEKLY CLEANUP WON'T WORK.
+
+10. (crontab -l 2>/dev/null; echo "0 12 * * 5 /root/Smoothbrain-OT-Backup/restic-cleanup.sh") | crontab -
+
+Done!
+
+
+
