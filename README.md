@@ -16,8 +16,8 @@ Edit the following items:
 
 Edit the RESTIC_REPOSITORY and RESTIC_PASSWORD lines.
 
-  S3 format should be: s3:https://s3.amazonaws.com/bucket_name_here
-  B2 format should be: bucketname:path/to/repo
+S3 format should be: s3:https://s3.amazonaws.com/bucket_name_here
+B2 format should be: bucketname:path/to/repo
   
 Edit both S3 lines OR both B2 lines.
 
