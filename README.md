@@ -38,11 +38,9 @@ S3:
 B2:
 ./restic -r b2:bucketname:path/to/repo init
 
-***************************************************
-** ANSIBLE USERS STOP HERE                        *
-** nano ansible/ansible-install-restic.yml        *
-** READ THE TOP COMMENTS FOR FURTHER INSTRUCTIONS *
-***************************************************
+** ANSIBLE USERS STOP HERE  
+** nano ansible/ansible-install-restic.yml  
+** READ THE TOP COMMENTS FOR FURTHER INSTRUCTIONS
 
 10. (crontab -l 2>/dev/null; echo "0 */6 * * * /root/Smoothbrain-OT-Backup/restic-backup.sh") | crontab -
 
