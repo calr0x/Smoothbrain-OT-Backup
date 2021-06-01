@@ -27,7 +27,7 @@ I RENT A LOW-TIER VPS WHICH I USE FOR CONTROL OPERATIONS ON MY NODES. IT DOES HA
 
 1. Login as root
 2. cd
-3. git clone https://github.com/calr0x/Smoothbrain-OT-Backup.git
+3. git clone https://github.com/calr0x/OT-Smoothbrain-Backup.git
 4. cd Smoothbrain-OT-Backup
 5. nano config.sh
 
