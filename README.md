@@ -7,7 +7,7 @@ What makes this system better is a few things:
 
 1. It only updates what is _new_ or _changed_. Files that haven't changed do not need to be resent. This is called "de-duplication" in the backup world. This means it takes up signifcantly less space _and_ there is no penalty for frequent backups and frequent backups need to be occurring.
 
-If you backup once a week on Mondays and on Friday the vps dies in such a way you're data isn't recoverable you lose _all_ the jobs you won since that last backup. Today that might not amount to much but tomorrow it _will_. A job is a job. There is no reason to lose a job over data loss. This system, by default, backs up four times a day (12pm/6pm/12am/6am localtime) and is user-changable to whatever you want.
+If you backup once a week on Mondays and on Friday the VPS dies in such a way you're data isn't recoverable you lose _all_ the jobs you won since that last backup. Today that might not amount to much but tomorrow it _will_. A job is a job. There is no reason to lose a job over data loss. This system, by default, backs up four times a day (12pm/6pm/12am/6am localtime) and is user-changable to whatever you want.
 
 2. It will, weekly, remove all but the latest "snapshot". A snapshot is a backup of the new or changed files since the _previous_ snapshot/backup. In this process it merges the data from those previous backups so this remaining snapshot contains a full image of the current state of the files.
 
