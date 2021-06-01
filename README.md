@@ -1,4 +1,4 @@
-# Smoothbrain-OT-Backup
+# OT-Smoothbrain-Backup
 Backup system for OriginTrail Nodes (Also supports Ansible)
 
 This backup system has several advantages over the default OriginTrail backup system. Their system copies 100% of everything it is backing up and sends it to Amazon. Every time. This means if your backup size is 10gig and you run it once a day you will have 70gig in a week. It also doesn't address verification nor does it ever delete old backups off of Amazon on a regular schedule. You can achieve these objectives yourself but most backup systems do this within the program.
