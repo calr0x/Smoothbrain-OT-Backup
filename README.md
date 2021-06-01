@@ -29,7 +29,7 @@ B2_ACCOUNT_KEY="REPLACE_WITH_B2_ACCOUNT_KEY"
 
 6. ctrl+s (to save)  
 7. ctrl+x (to exit nano)
-8. chmod -R +x data/* install-restic-repo.sh restic restic-*  
+8. chmod -R +x data/* restic*  
 9. RUN THE FOLLOWING COMMAND BELOW DEPENDING ON WHETHER IT'S S3 OR B2:
 
 S3:
