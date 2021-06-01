@@ -3,15 +3,15 @@ source "/root/Smoothbrain-OT-Backup/config.sh"
 STATUS=$?
 N1=$'\n'
 
-OUTPUT=$(rm -rf /root/Smoothbrain-OT-Backup/backup/*)
+rm -rf /root/Smoothbrain-OT-Backup/backup/*
 echo $STATUS
 if [ $STATUS == 1 ]; then
-  /root/Smoothbrain-OT-Backup/data/send.sh "Delete backup folder contents FAILED${N1}$OUTPUT"
+  /root/Smoothbrain-OT-Backup/data/send.sh "Delete backup folder contents FAILED"
   exit 1
 fi
 
 echo "Linking container backup folder to /root/Smoothbrain-OT-Backup/backup"
-OUTPUT=$(ln -sf "$(docker inspect --format='{{.GraphDriver.Data.MergedDir}}' otnode)/ot-node/backup" /root/Smoothbrain-OT-Backup/)
+ln -sf "$(docker inspect --format='{{.GraphDriver.Data.MergedDir}}' otnode)/ot-node/backup" /root/Smoothbrain-OT-Backup/
 echo $STATUS
 if [ $STATUS == 1 ]; then
   /root/Smoothbrain-OT-Backup/data/send.sh "Linking container backup folder command FAILED"
