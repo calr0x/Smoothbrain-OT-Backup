@@ -3,7 +3,7 @@ source "/root/Smoothbrain-OT-Backup/config.sh"
 STATUS=$?
 N1=$'\n'
 
-rm -rf /root/Smoothbrain-OT-Backup/backup/* /root/Smoothbrain-OT-Backup/backup/.*
+rm -rf /root/Smoothbrain-OT-Backup/backup/* /root/Smoothbrain-OT-Backup/backup/.origintrail_noderc
 echo $STATUS
 if [ $STATUS == 1 ]; then
   /root/Smoothbrain-OT-Backup/data/send.sh "Delete backup folder contents FAILED"
@@ -57,7 +57,7 @@ echo "Uploading data to Amazon S3"
 echo $STATUS
 if [ $STATUS == 0 ]; then
   /root/Smoothbrain-OT-Backup/data/send.sh "Backup SUCCESSFUL"
-  rm -rf /root/Smoothbrain-OT-Backup/backup/* /root/Smoothbrain-OT-Backup/backup/.*
+  rm -rf /root/Smoothbrain-OT-Backup/backup/* /root/Smoothbrain-OT-Backup/backup/.origintrail_noderc
 else
   /root/Smoothbrain-OT-Backup/data/send.sh "Uploading backup to S3 FAILED"
 fi
