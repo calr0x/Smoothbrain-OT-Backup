@@ -1,9 +1,0 @@
----
-
-- name: Install and configure Restic backups for OriginTrail nodes...
-  hosts: all
-  gather_facts: no
-
-  tasks:
-    - name: Execute initial backup
-      shell: /root/restic/restic-backup.sh
