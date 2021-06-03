@@ -20,7 +20,8 @@ fi
 
 
 echo "Backing up OT Node data"
-docker exec otnode node scripts/backup.js --config=/ot-node/.origintrail_noderc --configDir=/ot-node/data --backupDirectory=/ot-node/backup  2>&1
+OUTPUT=$(docker exec otnode node scripts/backup.js --config=/ot-node/.origintrail_noderc --configDir=/ot-node/data --backupDirectory=/ot-node/backup  2>&1)
+echo $OUTPUT
 echo $STATUS
 if [ $STATUS == 1 ]; then
   /root/OT-Smoothbrain-Backup/data/send.sh "OT docker backup command FAILED"
@@ -36,7 +37,7 @@ if [ $STATUS == 1 ]; then
 fi
 
 echo "Moving hidden data out of dated folder into backup"
-mv -v /root/OT-Smoothbrain-Backup/backup/.origintrail_noderc /root/OT-Smoothbrain-Backup/backup/ 2>&1
+mv -v /root/OT-Smoothbrain-Backup/backup/*/.origintrail_noderc /root/OT-Smoothbrain-Backup/backup/ 2>&1
 echo $STATUS
 if [ $STATUS == 1 ]; then
   /root/OT-Smoothbrain-Backup/data/send.sh "Moving data command FAILED"
@@ -56,7 +57,7 @@ echo "Uploading data to Amazon S3"
 /root/OT-Smoothbrain-Backup/restic backup /root/OT-Smoothbrain-Backup/backup/.origintrail_noderc /root/OT-Smoothbrain-Backup/backup/* 2>&1
 echo $STATUS
 if [ $STATUS == 0 ]; then
-  /root/OT-Smoothbrain-Backup/data/send.sh "Backup SUCCESSFUL"
+  /root/OT-Smoothbrain-Backup/data/send.sh "Backup SUCCESSFUL: $OUTPUT"
   rm -rf /root/OT-Smoothbrain-Backup/backup/* /root/OT-Smoothbrain-Backup/backup/.origintrail_noderc
 else
   /root/OT-Smoothbrain-Backup/data/send.sh "Uploading backup to S3 FAILED"
