@@ -53,7 +53,7 @@ if [ $STATUS == 1 ]; then
 fi
 
 echo "Uploading data to Amazon S3"
-OUTPUT=/root/OT-Smoothbrain-Backup/restic backup /root/OT-Smoothbrain-Backup/backup/.origintrail_noderc /root/OT-Smoothbrain-Backup/backup/* 2>&1
+OUTPUT=$(/root/OT-Smoothbrain-Backup/restic backup /root/OT-Smoothbrain-Backup/backup/.origintrail_noderc /root/OT-Smoothbrain-Backup/backup/* 2>&1)
 echo $STATUS
 if [ $STATUS == 0 ]; then
   /root/OT-Smoothbrain-Backup/data/send.sh "Backup SUCCESSFUL:${N1}$OUTPUT"
