@@ -28,7 +28,7 @@ I RENT A LOW-TIER VPS WHICH I USE FOR CONTROL OPERATIONS ON MY NODES. IT DOES HA
 1. Login as root
 2. cd
 3. git clone https://github.com/calr0x/OT-Smoothbrain-Backup.git
-4. cd Smoothbrain-OT-Backup
+4. cd OT-Smoothbrain-Backup
 5. nano config.sh
 
 Edit the following items:
@@ -57,9 +57,9 @@ S3:
 B2:
 ./restic -r b2:bucketname:path/to/repo init
 
-** ANSIBLE USERS STOP HERE  
-** nano ansible/ansible-install-restic.yml  
-** READ THE TOP COMMENTS FOR FURTHER INSTRUCTIONS
+** ANSIBLE USERS STOP HERE 
+** nano ansible/install-restic.yml  
+** READ THE TOP COMMENT FOR FURTHER INSTRUCTIONS
 
 10. (crontab -l 2>/dev/null; echo "0 */6 * * * /root/Smoothbrain-OT-Backup/restic-backup.sh") | crontab -
 
