@@ -61,7 +61,7 @@ B2:
 ** nano ansible/install-restic.yml  
 ** READ THE TOP COMMENT FOR FURTHER INSTRUCTIONS
 
-10. (crontab -l 2>/dev/null; echo "0 */6 * * * /root/Smoothbrain-OT-Backup/restic-backup.sh") | crontab -
+10. (crontab -l 2>/dev/null; echo "0 */6 * * * /root/OT-Smoothbrain-Backup/restic-backup.sh") | crontab -
 
 12. To run an initial backup immediately:
 
@@ -71,7 +71,7 @@ THE LAST COMMAND SCHEDULES A WEEKLY CLEANUP OF THE REPOSITORY TO CLEAR OLD BACKU
 
 IF YOU ONLY HAVE 1 NODE THEN RUN THIS COMMAND AND YOU ARE DONE. IF YOU ARE RUNNING MULTIPLE NODES AND EACH NODE HAS ITS OWN BUCKET THEN RUN THIS COMMMAND ON EACH NODE. IF YOU HAVE MULTIPLE NODES **AND** THE NODES SHARE A BUCKET THEN THIS COMMAND CAN ONLY BE RUN ON **ONE** NODE. IF YOU RUN THIS COMMAND ON MORE THAN ONE NODE IT WILL CREATE A SITUATION WHERE THE WEEKLY CLEANUP WON'T WORK.
 
-11. (crontab -l 2>/dev/null; echo "0 12 * * 5 /root/Smoothbrain-OT-Backup/restic-cleanup.sh") | crontab -
+11. (crontab -l 2>/dev/null; echo "0 12 * * 5 /root/OT-Smoothbrain-Backup/restic-cleanup.sh") | crontab -
 
 Done!
 
