@@ -49,19 +49,14 @@ B2_ACCOUNT_KEY="REPLACE_WITH_B2_ACCOUNT_KEY"
 6. ctrl+s (to save)  
 7. ctrl+x (to exit nano)
 8. chmod -R +x data/* restic*  
-9. RUN THE FOLLOWING COMMAND BELOW DEPENDING ON WHETHER IT'S S3 OR B2:
-
-S3:
-./restic -r s3.amazonaws.com/bucket_name_here init
-
-B2:
-./restic -r b2:bucketname:path/to/repo init
+9. source config.sh
+10. ./restic init
 
 ** ANSIBLE USERS STOP HERE
 ** nano ansible/install-restic.yml  
 ** READ THE TOP COMMENT FOR FURTHER INSTRUCTIONS
 
-10. (crontab -l 2>/dev/null; echo "0 */6 * * * /root/OT-Smoothbrain-Backup/restic-backup.sh") | crontab -
+11. (crontab -l 2>/dev/null; echo "0 */6 * * * /root/OT-Smoothbrain-Backup/restic-backup.sh") | crontab -
 
 12. To run an initial backup immediately:
 
@@ -71,6 +66,6 @@ THE LAST COMMAND SCHEDULES A WEEKLY CLEANUP OF THE REPOSITORY TO CLEAR OLD BACKU
 
 IF YOU ONLY HAVE 1 NODE THEN RUN THIS COMMAND AND YOU ARE DONE. IF YOU ARE RUNNING MULTIPLE NODES AND EACH NODE HAS ITS OWN BUCKET THEN RUN THIS COMMMAND ON EACH NODE. IF YOU HAVE MULTIPLE NODES **AND** THE NODES SHARE A BUCKET THEN THIS COMMAND CAN ONLY BE RUN ON **ONE** NODE. IF YOU RUN THIS COMMAND ON MORE THAN ONE NODE IT WILL CREATE A SITUATION WHERE THE WEEKLY CLEANUP WON'T WORK.
 
-11. (crontab -l 2>/dev/null; echo "0 12 * * 5 /root/OT-Smoothbrain-Backup/restic-cleanup.sh") | crontab -
+13. (crontab -l 2>/dev/null; echo "0 12 * * 5 /root/OT-Smoothbrain-Backup/restic-cleanup.sh") | crontab -
 
 Done!
