@@ -29,6 +29,11 @@
   gather_facts: no
 
   tasks:
+  - name: Delete existing OT-Smoothbrain-Backup folder
+    file:
+      path: /root/OT-Smoothbrain-Backup
+      state: absent
+
   - name: Clone OT-Smoothbrain-Backup git repository
     git:
       repo: 'https://github.com/calr0x/OT-Smoothbrain-Backup.git'
