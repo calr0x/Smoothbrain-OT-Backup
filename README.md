@@ -57,7 +57,7 @@ S3:
 B2:
 ./restic -r b2:bucketname:path/to/repo init
 
-** ANSIBLE USERS STOP HERE 
+** ANSIBLE USERS STOP HERE
 ** nano ansible/install-restic.yml  
 ** READ THE TOP COMMENT FOR FURTHER INSTRUCTIONS
 
@@ -74,6 +74,3 @@ IF YOU ONLY HAVE 1 NODE THEN RUN THIS COMMAND AND YOU ARE DONE. IF YOU ARE RUNNI
 11. (crontab -l 2>/dev/null; echo "0 12 * * 5 /root/OT-Smoothbrain-Backup/restic-cleanup.sh") | crontab -
 
 Done!
-
-
-
