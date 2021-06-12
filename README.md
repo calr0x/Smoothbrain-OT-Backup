@@ -51,9 +51,11 @@ Edit both S3 lines *OR* both B2 lines.
 8. source config.sh
 9. ./restic init
 
+---
 __ANSIBLE USERS STOP HERE__  
 __nano ansible/install-restic.yml__  
 __READ THE TOP COMMENT FOR FURTHER INSTRUCTIONS__
+---
 
 10. (crontab -l 2>/dev/null; echo "0 */6 * * * /root/OT-Smoothbrain-Backup/restic-backup.sh") | crontab -
 
