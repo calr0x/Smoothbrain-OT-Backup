@@ -35,25 +35,25 @@ Edit the following items:
 
 Edit the RESTIC_REPOSITORY and RESTIC_PASSWORD lines. Remember, if you are using a different bucket for each node then this file MUST be different on each computer it's being installed on!
 
-__S3__ format should be: __s3:ht<span>tps://s3.amazonaws.com/bucket_name_here__  
-__B2__ format should be: __bucketname:path/to/repo__
+  __S3__ format should be: __s3:ht<span>tps://s3.amazonaws.com/bucket_name_here__  
+  __B2__ format should be: __bucketname:path/to/repo__
 
 Edit both S3 lines OR both B2 lines.
 
-AWS_ACCESS_KEY_ID="REPLACE_WITH_AWS_ACCESS_KEY"  
-AWS_SECRET_ACCESS_KEY="REPLACE_WITH_AWS_SECRET_ACCESS_KEY"
+  AWS_ACCESS_KEY_ID="REPLACE_WITH_AWS_ACCESS_KEY"  
+  AWS_SECRET_ACCESS_KEY="REPLACE_WITH_AWS_SECRET_ACCESS_KEY"
 
-B2_ACCOUNT_ID="REPLACE_WITH_B2_ACCOUNT_ID"  
-B2_ACCOUNT_KEY="REPLACE_WITH_B2_ACCOUNT_KEY"
+  B2_ACCOUNT_ID="REPLACE_WITH_B2_ACCOUNT_ID"  
+  B2_ACCOUNT_KEY="REPLACE_WITH_B2_ACCOUNT_KEY"
 
 6. ctrl+s (to save)  
 7. ctrl+x (to exit nano)
 8. source config.sh
 9. ./restic init
 
-** ANSIBLE USERS STOP HERE
-** nano ansible/install-restic.yml  
-** READ THE TOP COMMENT FOR FURTHER INSTRUCTIONS
+__ANSIBLE USERS STOP HERE__  
+__nano ansible/install-restic.yml__  
+__READ THE TOP COMMENT FOR FURTHER INSTRUCTIONS__
 
 10. (crontab -l 2>/dev/null; echo "0 */6 * * * /root/OT-Smoothbrain-Backup/restic-backup.sh") | crontab -
 
