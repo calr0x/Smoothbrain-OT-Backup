@@ -35,7 +35,7 @@ Edit the following items:
 
 Edit the RESTIC_REPOSITORY and RESTIC_PASSWORD lines. Remember, if you are using a different bucket for each node then this file MUST be different on each computer it's being installed on!
 
-__S3__ format should be: __s3:https://s3.amazonaws.com/bucket_name_here__  
+__S3__ format should be: __s3:ht<span>tps://s3.amazonaws.com/bucket_name_here__  
 __B2__ format should be: __bucketname:path/to/repo__
 
 Edit both S3 lines OR both B2 lines.
