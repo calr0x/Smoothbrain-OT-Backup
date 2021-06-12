@@ -1,4 +1,13 @@
 ---
+
+# This playbook will install restic on all your servers. It will:
+# 1. Delete the exsiting OT-Smoothbrain-Backup folder.
+# 2. Clone git repository.
+# 3. Copy the edited config
+# 4. Add backup schedule every 6 hours.
+# 5. Stop Cosmic_Overlay AWS backup script if running.
+# 6. Execute a backup.
+
 ####################################################################################
 # Ansible Users. All commands below assume you are root when running these commands:
 #
@@ -13,7 +22,8 @@
 #
 # If you login as a sudo user account on the VPS with an SSH key:
 # ansible-playbook -u REPLACE_WITH_USERNAME -b -K ansible-install-restic.yml
-#
+####################################################################################
+
 # Settings to change (if desired): It currently backs up 4x a day (12pm/6pm/12am/6am)
 # In the cron section:
 # minute
@@ -21,7 +31,7 @@
 # day
 # month
 # weekday
-#
+
 ####################################################################################
 
 - name: Install and configure Restic backups for OriginTrail nodes...
@@ -68,6 +78,11 @@
       month: "*"
       weekday: "*"
       job: "/root/OT-Smoothbrain-Backup/restic-backup.sh"
+
+  - name: Stop Cosmic_Overlay backup script (if present)
+    command:
+      chdir: /root/Cosmic_OverlayV2/cron-jobs-node
+      cmd: forever stop awsbackup.js
 
   - name: Execute initial backup
     shell: /root/OT-Smoothbrain-Backup/restic-backup.sh
