@@ -10,33 +10,27 @@ echo "$FORGET_OUTPUT"
 
 echo "Notifying result of forget command with telegram STATUS=$FORGET_STATUS"
 
-if [ $FORGET_STATUS == 0 ]; then
+if [ $FORGET_STATUS -eq 0 ]; then
   /root/OT-Smoothbrain-Backup/data/send.sh "Forget command SUCCEEDED"
 else
   /root/OT-Smoothbrain-Backup/data/send.sh "Forget command FAILED${N1}$FORGET_OUTPUT"
   exit 1
 fi
 
-PRUNE_OUTPUT=`/root/OT-Smoothbrain-Backup/restic prune 2>&1`
+PRUNE_OUTPUT=`/root/OT-Smoothbrain-Backup/restic prune` 2>&1
+PRUNE_SUCCESS_OUTPUT=$(echo "$PRUNE_OUTPUT" | grep 'total\ prune\|remaining:')
 PRUNE_STATUS=$?
-echo "$PRUNE_OUTPUT"
 
-echo "Notifying result of prune command with telegram STATUS=$PRUNE_STATUS"
-
-if [ $PRUNE_STATUS == 0 ]; then
-  /root/OT-Smoothbrain-Backup/data/send.sh "Prune command SUCCEEDED"
+if [ $PRUNE_STATUS -eq 0 ]; then
+  /root/OT-Smoothbrain-Backup/data/send.sh "Prune command SUCCEEDED${N1}$PRUNE_SUCCESS_OUTPUT"
 else
   /root/OT-Smoothbrain-Backup/data/send.sh "Prune command FAILED${N1}$PRUNE_OUTPUT"
   exit 1
 fi
 
 CHECK_OUTPUT=`/root/OT-Smoothbrain-Backup/restic check 2>&1`
-CHECK_STATUS=$?
-echo "$CHECK_OUTPUT"
 
-echo "Notifying result of check command with telegram STATUS=$CHECK_STATUS"
-
-if [ $CHECK_STATUS == 0 ]; then
+if [ $? -eq 0 ]; then
   /root/OT-Smoothbrain-Backup/data/send.sh "Check command SUCCEEDED"
 else
   /root/OT-Smoothbrain-Backup/data/send.sh "Check command FAILED${N1}$CHECK_OUTPUT"
