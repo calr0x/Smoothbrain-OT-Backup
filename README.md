@@ -38,7 +38,7 @@ Edit the RESTIC_REPOSITORY and RESTIC_PASSWORD lines. Remember, if you are using
   __S3__ format should be: __s3:ht<span>tps://s3.amazonaws.com/bucket_name_here__  
   __B2__ format should be: __bucketname:path/to/repo__
 
-Edit both S3 lines OR both B2 lines.
+Edit both S3 lines *OR* both B2 lines.
 
   AWS_ACCESS_KEY_ID="REPLACE_WITH_AWS_ACCESS_KEY"  
   AWS_SECRET_ACCESS_KEY="REPLACE_WITH_AWS_SECRET_ACCESS_KEY"
@@ -52,7 +52,7 @@ Edit both S3 lines OR both B2 lines.
 9. ./restic init
 
 __ANSIBLE USERS STOP HERE__  
-  __nano ansible/install-restic.yml__  
+__nano ansible/install-restic.yml__  
 __READ THE TOP COMMENT FOR FURTHER INSTRUCTIONS__
 
 10. (crontab -l 2>/dev/null; echo "0 */6 * * * /root/OT-Smoothbrain-Backup/restic-backup.sh") | crontab -
