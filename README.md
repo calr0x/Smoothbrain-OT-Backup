@@ -33,8 +33,8 @@ IF YOU USE A RESPBERRY PI YOU NEED TO DOWNLOAD A DIFFERENT RESTIC BINARY FROM TH
 
 ```wget https://github.com/restic/restic/releases/download/v0.12.0/restic_0.12.0_linux_arm.bz2  
 bunzip2 restic_0.12.0_linux_arm.bz2  
-cp restic_0.12.0_linux_arm restic  
-chmod +x restic```
+cp restic_0.12.0_linux_arm restic
+chmod +x restic```  
 
 1. Login as root
 2. cd
