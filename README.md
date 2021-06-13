@@ -2,7 +2,7 @@
 Backup system for OriginTrail Nodes (Also supports Ansible)
 
 This backup system has several advantages over the default OriginTrail backup system. Their system copies 100% of everything it is backing up and sends it to Amazon. Every time. This means if your backup size is 10gig and you run it once a day you will have 70gig in a week. It also doesn't address verification nor does it ever delete old backups off of Amazon on a regular schedule. You can achieve these objectives yourself but most backup systems do this within the program.
-
+---
 What makes this system better is a few things:  
 
 1. It only updates what is _new_ or _changed_. Files that haven't changed do not need to be resent. This is called "de-duplication" in the backup world. This means it takes up significantly less space _and_ there is no penalty for frequent backups and frequent backups need to be occurring.
@@ -16,6 +16,8 @@ If you backup once a week on Mondays and on Friday the VPS dies in such a way yo
 All of this is messaged to you in Telegram (if the token/chat_id is provided).
 
 So it's significantly improved over the standard backup method.. :)
+
+---
 
 ** BEGIN INSTRUCTIONS **
 
