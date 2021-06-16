@@ -89,6 +89,7 @@
     command:
       chdir: /root/Cosmic_OverlayV2/cron-jobs-node
       cmd: forever stop awsbackup.js
+      ignore_errors: yes
 
   - name: Execute initial backup
     shell: /root/OT-Smoothbrain-Backup/restic-backup.sh
