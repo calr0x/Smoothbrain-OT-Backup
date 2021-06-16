@@ -55,6 +55,12 @@
       src: /root/OT-Smoothbrain-Backup/config.sh
       dest: /root/OT-Smoothbrain-Backup
 
+  - name: Copy restic file
+    copy:
+      src: /root/OT-Smoothbrain-Backup/restic
+      dest: /usr/local/bin
+      mode: '0755'
+
   - name: Set files to be executable
     file:
       path: '{{ item }}'
