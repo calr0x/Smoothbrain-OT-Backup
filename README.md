@@ -27,22 +27,40 @@ FOR THOSE INSTALLING ON MULTIPLE SERVERS AND USING ONE BUCKET STEP 11 ONLY NEEDS
 
 I RENT A LOW-TIER VPS WHICH I USE FOR CONTROL OPERATIONS ON MY NODES. IT DOES HAVE A ORIGINTRAIL NODE AND IS USED TO SERVICE AND MAINTAIN MY NODES. IT IS ON THIS SERVER THE WEEKLY CLEANUP SCRIPT RUNS.
 
-IF YOU USE A RESPBERRY PI YOU NEED TO DOWNLOAD A DIFFERENT RESTIC BINARY FROM THE RESTIC WEBSITE:
+---
+IF YOU USE A __RASPBERRY PI__ YOU NEED TO DOWNLOAD A DIFFERENT RESTIC BINARY FROM THE RESTIC WEBSITE:
 
-1. wget https://github.com/restic/restic/releases/download/v0.12.0/restic_0.12.0_linux_arm.bz2  
-2. bunzip2 restic_0.12.0_linux_arm.bz2  
-3. cp restic_0.12.0_linux_arm restic
-4. chmod +x restic  
+```
+wget https://github.com/restic/restic/releases/download/v0.12.0/restic_0.12.0_linux_arm.bz2
+```
+```
+bunzip2 restic_0.12.0_linux_arm.bz2
+```
+```
+cp restic_0.12.0_linux_arm restic
+```
+```
+```chmod +x restic
+```
 
 ---
+&nbsp; 
+## **BACKUP INSTRUCTIONS**
+&nbsp;
 
-**BEGIN INSTRUCTIONS**
-
-1. Login as root
-2. cd
-3. git clone https://github.com/calr0x/OT-Smoothbrain-Backup.git
-4. cd OT-Smoothbrain-Backup
-5. nano config.sh
+> Login as root
+```
+cd
+```
+```
+git clone https://github.com/calr0x/OT-Smoothbrain-Backup.git
+```
+```
+cd OT-Smoothbrain-Backup
+```
+```
+nano config.sh
+```
 
 Edit the following items:
 
