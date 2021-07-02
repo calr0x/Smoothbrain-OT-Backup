@@ -40,15 +40,15 @@ bunzip2 restic_0.12.0_linux_arm.bz2
 cp restic_0.12.0_linux_arm restic
 ```
 ```
-```chmod +x restic
+chmod +x restic
 ```
 
 ---
 &nbsp; 
-## **BACKUP INSTRUCTIONS**
+## **BACKUP INSTRUCTIONS:**
 &nbsp;
 
-> Login as root
+__Login as root__
 ```
 cd
 ```
@@ -64,42 +64,88 @@ nano config.sh
 
 Edit the following items:
 
-Edit the RESTIC_REPOSITORY and RESTIC_PASSWORD lines. Remember, if you are using a different bucket for each node then this file MUST be different on each computer it's being installed on!
+Edit the RESTIC_REPOSITORY and RESTIC_PASSWORD lines. Remember, if you are using a different
+bucket for each node then this file MUST be different on each computer it's being installed on!
 
-  __S3__ format should be: __s3:ht<span>tps://s3.amazonaws.com/bucket_name_here__  
+>  __S3__ format should be: __s3:ht<span>tps://s3.amazonaws.com/bucket_name_here__  
   __B2__ format should be: __bucketname:path/to/repo__
 
-Edit both S3 lines *OR* both B2 lines.
+Edit both S3 lines ___OR___ both B2 lines ___NOT___ both.
 
-  AWS_ACCESS_KEY_ID="REPLACE_WITH_AWS_ACCESS_KEY"  
-  AWS_SECRET_ACCESS_KEY="REPLACE_WITH_AWS_SECRET_ACCESS_KEY"
+>  AWS_ACCESS_KEY_ID="__REPLACE_WITH_AWS_ACCESS_KEY__"  
+>  AWS_SECRET_ACCESS_KEY="__REPLACE_WITH_AWS_SECRET_ACCESS_KEY__"
 
-  B2_ACCOUNT_ID="REPLACE_WITH_B2_ACCOUNT_ID"  
-  B2_ACCOUNT_KEY="REPLACE_WITH_B2_ACCOUNT_KEY"
+>  B2_ACCOUNT_ID="__REPLACE_WITH_B2_ACCOUNT_ID__"  
+>  B2_ACCOUNT_KEY="__REPLACE_WITH_B2_ACCOUNT_KEY__"
 
-6. ctrl+s (to save)  
-7. ctrl+x (to exit nano)
-8. source config.sh
-9. ./restic init
+```
+ctrl+s (to save)
+ctrl+x (to exit nano)
+```
+```
+source config.sh
+```
+```
+./restic init
+```
 
 ---
 
-__ANSIBLE USERS STOP HERE__  
-__nano ansible/install-restic.yml__  
-__READ THE TOP COMMENT FOR FURTHER INSTRUCTIONS__
+## __ANSIBLE USERS STOP HERE__:
+Read the top of the following document for further instructions.
+```
+nano ansible/install-restic.yml
+```
 
 ---
 
-10. (crontab -l 2>/dev/null; echo "0 */6 * * * /root/OT-Smoothbrain-Backup/restic-backup.sh") | crontab -
-
-11. To run an initial backup immediately:
-
+```
+(crontab -l 2>/dev/null; echo "0 */6 * * * /root/OT-Smoothbrain-Backup/restic-backup.sh") | crontab -
+```
+To run an initial backup immediately:
+```
 source config.sh && ./restic-backup.sh
+```
 
 THE LAST COMMAND SCHEDULES A WEEKLY CLEANUP OF THE REPOSITORY TO CLEAR OLD BACKUPS. IT IS **NOT** RUN ON EVERY COMPUTER. IT MUST BE INSTALLED ON ONLY ONE SERVER AND CAN BE A NODE OR A LINUX SERVER THAT'S NOT RUNNING A NODE.
 
 IF YOU ONLY HAVE 1 NODE THEN RUN THIS COMMAND AND YOU ARE DONE. IF YOU ARE RUNNING MULTIPLE NODES AND EACH NODE HAS ITS OWN BUCKET THEN RUN THIS COMMMAND ON EACH NODE. IF YOU HAVE MULTIPLE NODES **AND** THE NODES SHARE A BUCKET THEN THIS COMMAND CAN ONLY BE RUN ON **ONE** NODE. IF YOU RUN THIS COMMAND ON MORE THAN ONE NODE IT WILL CREATE A SITUATION WHERE THE WEEKLY CLEANUP WON'T WORK.
 
-12. (crontab -l 2>/dev/null; echo "0 12 * * 5 /root/OT-Smoothbrain-Backup/restic-cleanup.sh") | crontab -
+```
+(crontab -l 2>/dev/null; echo "0 12 * * 5 /root/OT-Smoothbrain-Backup/restic-cleanup.sh") | crontab -
+```
 
-Done!
+Backup done!
+
+
+&nbsp; 
+## **BACKUP INSTRUCTIONS:**
+&nbsp;
+
+__Create a fresh server and follow https://otnode.com/ (1-4 of new node guide)__
+
+__Login as root__  
+
+```
+apt install git
+```
+```
+git clone https://github.com/calr0x/OT-Smoothbrain-Backup.git
+```
+Install smoothbrain steps 1-9  
+./restic snapshots (if this doesn't work copy and paste the config from a working smoothbrain config)
+Review the snapshots and make spot the server you want to restore, include the node name in the next command
+./restic snapshots -H Otnode1 (replace "Otnode1" with your node name from step 4)
+Review list of snapshots for that node
+./restic restore SNAPSHOT_ID --target / (replace "SNAPSHOT_ID" with 8 digit snapshot id which you want to restore, newest is the bottom one)
+Do the following command
+cp /root/OT-Smoothbrain-Backup/backup/.origintrail_noderc /root/.origintrail_noderc
+Edit the IP if it has changed with:
+nano /root/.origintrail_noderc
+Move the backup folder from /root/backup/root/OT-Smoothbrain-Backup/backup/ to /backup with the following command:
+mv /root/backup/root/OT-Smoothbrain-Backup/backup/ /root/
+Do restore steps 7-8 of (https://otnode.com/node-backup/)
+Edit restore.sh using this command:
+nano /root/restore.sh
+#change backup directory BACKUPDIR="none" to BACKUPDIR="OT-Smoothbrain-Backup/backup"
+Step 9 of otnode restore guide, being ./restore.sh
