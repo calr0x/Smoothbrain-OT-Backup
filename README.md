@@ -85,6 +85,11 @@ ctrl+x (to exit nano)
 ```
 source config.sh
 ```
+&nbsp;
+
+__IF YOU ARE RESTORING A BACKUP ON A NEW SERVER STOP HERE AND RESTURN TO THE RESTORE DIRECTIONS FOR THE NEXT STEP!__  
+&nbsp;
+
 ```
 ./restic init
 ```
@@ -132,12 +137,31 @@ apt install git
 ```
 git clone https://github.com/calr0x/OT-Smoothbrain-Backup.git
 ```
-Install smoothbrain steps 1-9  
-./restic snapshots (if this doesn't work copy and paste the config from a working smoothbrain config)
-Review the snapshots and make spot the server you want to restore, include the node name in the next command
-./restic snapshots -H Otnode1 (replace "Otnode1" with your node name from step 4)
-Review list of snapshots for that node
-./restic restore SNAPSHOT_ID --target / (replace "SNAPSHOT_ID" with 8 digit snapshot id which you want to restore, newest is the bottom one)
+Install Smoothbrain-Backup by following the install directions until directed to return here.
+
+```
+./restic snapshots
+```
+If this doesn't work there is a problem in the Smoothbrain config. Correct the issue by running the commands below and retry ./restic snapshots:
+```
+nano config.sh
+```
+```
+source config.sh
+```
+
+Review the snapshots and find the most recent backup to restore. Pay attention to the 3rd column where the hostname of the server that made the backup is. If you know the EXACT (case-sensitive) hostname you can use the following command to filter out all other hosts:
+```
+./restic snapshots -H TYPE_HOSTNAME_HERE
+```
+
+For example:
+```
+./restic snapshots -H Otnode1
+```
+Review list of snapshots for that node.  
+```
+./restic restore SNAPSHOT_ID --target /root (replace "SNAPSHOT_ID" with 8 digit snapshot id which you want to restore, newest is the bottom one)
 Do the following command
 cp /root/OT-Smoothbrain-Backup/backup/.origintrail_noderc /root/.origintrail_noderc
 Edit the IP if it has changed with:
