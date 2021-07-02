@@ -9,19 +9,20 @@
 # 6. Execute a backup.
 
 ####################################################################################
-# Ansible Users. All commands below assume you are root when running these commands:
+# Ansible Users. All commands below assume you are root (and in /root/OT-SMoothbrain-Backup
+# when running these commands:
 #
 # If you login as root on the VPS with a password:
-# ansible-playbook -k ansible-install-restic.yml
+# ansible-playbook -k ansible/install-restic.yml
 #
 # If you login as root on the VPS with an SSH key:
-# ansible-playbook ansible-install-restic.yml
+# ansible-playbook ansible/install-restic.yml
 #
 # If you login as a sudo user account on the VPS with a password:
-# ansible-playbook -u REPLACE_WITH_USERNAME -b -k -K -ansible-install-restic.yml
+# ansible-playbook -u REPLACE_WITH_USERNAME -b -k -K ansible/install-restic.yml
 #
 # If you login as a sudo user account on the VPS with an SSH key:
-# ansible-playbook -u REPLACE_WITH_USERNAME -b -K ansible-install-restic.yml
+# ansible-playbook -u REPLACE_WITH_USERNAME -b -K ansible/install-restic.yml
 ####################################################################################
 
 # Settings to change (if desired): It currently backs up 4x a day (12pm/6pm/12am/6am)
@@ -60,17 +61,6 @@
       src: /root/OT-Smoothbrain-Backup/restic
       dest: /usr/local/bin
       mode: '0755'
-
-  - name: Set files to be executable
-    file:
-      path: '{{ item }}'
-      mode: '0700'
-    loop:
-      - '/root/OT-Smoothbrain-Backup/data/link-merged.sh'
-      - '/root/OT-Smoothbrain-Backup/data/send.sh'
-      - '/root/OT-Smoothbrain-Backup/restic'
-      - '/root/OT-Smoothbrain-Backup/restic-backup.sh'
-      - '/root/OT-Smoothbrain-Backup/restic-cleanup.sh'
 
   - name: Link merged directory to host
     shell: /root/OT-Smoothbrain-Backup/data/link-merged.sh
