@@ -1,5 +1,9 @@
 #!/bin/bash
 
+# Initial version of ColdBrain Backup!
+# This will stop the node and then the arangodb server, backup any changed data directly from the arango folder, and then restart arango, and then the node.
+# The initial backup will take some time!
+
 source "/root/OT-Smoothbrain-Backup/config.sh"
 STATUS=$?
 N1=$'\n'
