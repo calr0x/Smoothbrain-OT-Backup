@@ -124,7 +124,7 @@ Backup done!
 
 
 &nbsp; 
-## **BACKUP INSTRUCTIONS:**
+## **RESTORE INSTRUCTIONS:**
 &nbsp;
 
 __Create a fresh server and follow https://otnode.com/ (1-4 of new node guide)__
