@@ -16,7 +16,7 @@ systemctl stop arangodb3
 
 echo "Uploading data to Amazon S3"
 
-OUTPUT=$(/root/OT-Smoothbrain-Backup/restic backup /ot-node/current/.origintrail_noderc /root/.origintrail_noderc /var/lib/arangodb3 /var/lib/arangodb3-apps 2>&1)
+OUTPUT=$(/root/OT-Smoothbrain-Backup/restic backup --tag coldbackup /ot-node/current/.origintrail_noderc /root/.origintrail_noderc /var/lib/arangodb3 /var/lib/arangodb3-apps 2>&1)
 
 if [ $? -eq 0 ]; then
   /root/OT-Smoothbrain-Backup/data/send.sh "Backup SUCCESSFUL:${N1}$OUTPUT"
