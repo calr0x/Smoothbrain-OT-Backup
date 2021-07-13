@@ -150,7 +150,7 @@ Install Smoothbrain-Backup and OT-Settings by following the [install directions]
 ```
 ./restic snapshots
 ```
-If this doesn't work there is a problem in the Smoothbrain config. Correct the issue by running the commands below and retry ./restic snapshots:
+If this doesn't work there is a problem in the OT-Settings config. Correct the issue by running the commands below and retry ./restic snapshots:
 ```
 nano config.sh
 ```
@@ -169,15 +169,17 @@ For example:
 ```
 Review list of snapshots for that node.  
 ```
-./restic restore SNAPSHOT_ID --target /root (replace "SNAPSHOT_ID" with 8 digit snapshot id which you want to restore, newest is the bottom one)
-Do the following command
-cp /root/OT-Smoothbrain-Backup/backup/.origintrail_noderc /root/.origintrail_noderc
+./restic restore SNAPSHOT_ID --target /root
+```
+(replace "SNAPSHOT_ID" with 8 digit snapshot id which you want to restore, newest is the bottom one)
 Edit the IP if it has changed with:
+```
 nano /root/.origintrail_noderc
-Move the backup folder from /root/backup/root/OT-Smoothbrain-Backup/backup/ to /backup with the following command:
-mv /root/backup/root/OT-Smoothbrain-Backup/backup/ /root/
+```
 Do restore steps 7-8 of (https://otnode.com/node-backup/)
 Edit restore.sh using this command:
+```
 nano /root/restore.sh
-#change backup directory BACKUPDIR="none" to BACKUPDIR="OT-Smoothbrain-Backup/backup"
+```
+change backup directory BACKUPDIR="none" to BACKUPDIR="/root/backup"
 Step 9 of otnode restore guide, being ./restore.sh
