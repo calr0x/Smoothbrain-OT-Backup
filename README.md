@@ -177,10 +177,3 @@ Edit the IP if it has changed with:
 nano /root/.origintrail_noderc
 ```
 Do restore steps 7-8 of (https://otnode.com/node-backup/)  
-
-Edit restore.sh using this command:
-```
-nano /root/restore.sh
-```
-change backup directory BACKUPDIR="none" to BACKUPDIR="/root/backup"
-Step 9 of otnode restore guide, being ./restore.sh
