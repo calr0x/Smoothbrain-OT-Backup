@@ -44,6 +44,11 @@
     file:
       path: /root/OT-Smoothbrain-Backup
       state: absent
+  
+  - name: Delete existing OT-Settings folder
+    file:
+      path: /root/OT-Settings
+      state: absent
 
   - name: Clone OT-Smoothbrain-Backup git repository
     git:
@@ -51,10 +56,16 @@
       dest: /root/OT-Smoothbrain-Backup
       force: yes
 
+  - name: Clone OT-Settings git repository
+    git:
+      repo: 'https://github.com/calr0x/OT-Settings.git'
+      dest: /root/OT-Settings
+      force: yes
+
   - name: Copy config file
     copy:
-      src: /root/OT-Smoothbrain-Backup/config.sh
-      dest: /root/OT-Smoothbrain-Backup
+      src: /root/OT-Settings/config.sh
+      dest: /root/OT-Settings
 
   - name: Copy restic file
     copy:
