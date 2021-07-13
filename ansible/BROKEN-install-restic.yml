@@ -1,0 +1,96 @@
+---
+
+# This playbook will install restic on all your servers. It will:
+# 1. Delete the exsiting OT-Smoothbrain-Backup folder.
+# 2. Clone git repository.
+# 3. Copy the edited config
+# 4. Add backup schedule every 6 hours.
+# 5. Stop Cosmic_Overlay AWS backup script if running.
+# 6. Execute a backup.
+
+####################################################################################
+# Ansible Users. All commands below assume you are root (and in /root/OT-SMoothbrain-Backup
+# when running these commands:
+#
+# If you login as root on the VPS with a password:
+# ansible-playbook -k ansible/install-restic.yml
+#
+# If you login as root on the VPS with an SSH key:
+# ansible-playbook ansible/install-restic.yml
+#
+# If you login as a sudo user account on the VPS with a password:
+# ansible-playbook -u REPLACE_WITH_USERNAME -b -k -K ansible/install-restic.yml
+#
+# If you login as a sudo user account on the VPS with an SSH key:
+# ansible-playbook -u REPLACE_WITH_USERNAME -b -K ansible/install-restic.yml
+####################################################################################
+
+# Settings to change (if desired): It currently backs up 4x a day (12pm/6pm/12am/6am)
+# In the cron section:
+# minute
+# hour
+# day
+# month
+# weekday
+
+####################################################################################
+
+- name: Install and configure Restic backups for OriginTrail nodes...
+  hosts: all
+  gather_facts: no
+
+  tasks:
+  - name: Delete existing OT-Smoothbrain-Backup folder
+    file:
+      path: /root/OT-Smoothbrain-Backup
+      state: absent
+  
+  - name: Delete existing OT-Settings folder
+    file:
+      path: /root/OT-Settings
+      state: absent
+
+  - name: Clone OT-Smoothbrain-Backup git repository
+    git:
+      repo: 'https://github.com/calr0x/OT-Smoothbrain-Backup.git'
+      dest: /root/OT-Smoothbrain-Backup
+      force: yes
+
+  - name: Clone OT-Settings git repository
+    git:
+      repo: 'https://github.com/calr0x/OT-Settings.git'
+      dest: /root/OT-Settings
+      force: yes
+
+  - name: Copy config file
+    copy:
+      src: /root/OT-Settings/config.sh
+      dest: /root/OT-Settings
+
+  - name: Copy restic file
+    copy:
+      src: /root/OT-Smoothbrain-Backup/restic
+      dest: /usr/local/bin
+      mode: '0755'
+
+  - name: Link merged directory to host
+    shell: /root/OT-Smoothbrain-Backup/data/link-merged.sh
+
+  - name: Add backup schedule to cron (every 6 hours)
+    cron:
+      name: "Restic backup"
+      minute: "0"
+      hour: "*/6"
+      day: "*"
+      month: "*"
+      weekday: "*"
+      job: "/root/OT-Smoothbrain-Backup/restic-backup.sh"
+
+  - name: Stop Cosmic_Overlay backup script (if present)
+    ignore_errors: yes
+    command:
+      chdir: /root/Cosmic_OverlayV2/cron-jobs-node
+      cmd: forever stop awsbackup.js
+
+  - name: Execute initial backup
+    shell: /root/OT-Smoothbrain-Backup/restic-backup.sh
