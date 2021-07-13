@@ -145,7 +145,7 @@ git clone https://github.com/calr0x/OT-Smoothbrain-Backup.git
 ```
 git clone https://github.com/calr0x/OT-Settings.git
 ```
-Install Smoothbrain-Backup and OT-Settings by following the [install directions](##-**BACKUP-INSTRUCTIONS:**) until directed to return here.
+Install Smoothbrain-Backup and OT-Settings by following the [install directions](##-BACKUP-INSTRUCTIONS:) until directed to return here.
 
 ```
 ./restic snapshots
