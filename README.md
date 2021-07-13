@@ -177,6 +177,7 @@ Edit the IP if it has changed with:
 nano /root/.origintrail_noderc
 ```
 Do restore steps 7-8 of (https://otnode.com/node-backup/)  
+
 Edit restore.sh using this command:
 ```
 nano /root/restore.sh
