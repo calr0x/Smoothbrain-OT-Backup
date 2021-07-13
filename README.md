@@ -45,7 +45,9 @@ chmod +x restic
 
 ---
 &nbsp; 
+
 ## **BACKUP INSTRUCTIONS:**
+
 &nbsp;
 
 __Login as root__
@@ -56,7 +58,10 @@ cd
 git clone https://github.com/calr0x/OT-Smoothbrain-Backup.git
 ```
 ```
-cd OT-Smoothbrain-Backup
+git clone https://github.com/calr0x/OT-Settings.git
+```
+```
+cd OT-Settings
 ```
 ```
 nano config.sh
@@ -137,7 +142,10 @@ apt install git
 ```
 git clone https://github.com/calr0x/OT-Smoothbrain-Backup.git
 ```
-Install Smoothbrain-Backup by following the install directions until directed to return here.
+```
+git clone https://github.com/calr0x/OT-Settings.git
+```
+Install Smoothbrain-Backup and OT-Settings by following the [install directions](##-**BACKUP-INSTRUCTIONS:**) until directed to return here.
 
 ```
 ./restic snapshots
