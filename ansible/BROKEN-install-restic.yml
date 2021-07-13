@@ -53,7 +53,7 @@
 
   - name: Copy config file
     copy:
-      src: /root/OT-Smoothbrain-Backup/config.sh
+      src: /root/OT-Settings/config.sh
       dest: /root/OT-Smoothbrain-Backup
 
   - name: Copy restic file
