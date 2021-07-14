@@ -1,4 +1,8 @@
 #!/bin/bash
+
+# This will stop the node, backup any changed data directly from the arango folder, and then restart the node.
+# The initial backup will take some time!
+
 source "/root/OT-Settings/config.sh"
 STATUS=$?
 N1=$'\n'
@@ -47,7 +51,7 @@ echo "Starting otnode"
 docker start otnode
 
 echo "Uploading data to Amazon S3"
-OUTPUT=$(/root/OT-Smoothbrain-Backup/restic backup /root/backup/.origintrail_noderc /root/backup/data /root/backup/arangodb3 /root/backup/arangodb3-apps 2>&1)
+OUTPUT=$(/root/OT-Smoothbrain-Backup/restic backup --tag coldbackup /root/backup/.origintrail_noderc /root/backup/data /root/backup/arangodb3 /root/backup/arangodb3-apps 2>&1)
 echo $OUTPUT
 if [ $? -eq 0 ]; then
   /root/OT-Settings/data/send.sh "Backup SUCCESSFUL:${N1}$OUTPUT"

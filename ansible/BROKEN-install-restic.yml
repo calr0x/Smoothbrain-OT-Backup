@@ -66,6 +66,9 @@
     copy:
       src: /root/OT-Settings/config.sh
       dest: /root/OT-Settings
+      owner: root
+      group: root
+      mode: '0700'
 
   - name: Copy restic file
     copy:

@@ -20,7 +20,6 @@ OUTPUT=$(/root/OT-Smoothbrain-Backup/restic backup --tag coldbackup /ot-node/cur
 
 if [ $? -eq 0 ]; then
   /root/OT-Settings/data/send.sh "Backup SUCCESSFUL:${N1}$OUTPUT"
-  rm -rf /root/backup/* /root/backup/.origintrail_noderc
 else
   /root/OT-Settings/data/send.sh "Uploading backup to S3 FAILED:${N1}$OUTPUT"
   systemctl start arangodb3
