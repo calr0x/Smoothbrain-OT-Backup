@@ -2,9 +2,6 @@
 source "/root/OT-Settings/config.sh"
 N1=$'\n'
 
-echo "Unlocking restic stale locks"
-./root/OT-Smoothbrain-Backup/restic unlock
-
 echo "Removing outdated snapshots and data"
 
 FORGET_OUTPUT=`/root/OT-Smoothbrain-Backup/restic forget --group-by host --keep-last 1 2>&1`
