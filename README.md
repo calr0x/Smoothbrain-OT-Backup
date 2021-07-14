@@ -45,7 +45,9 @@ chmod +x restic
 
 ---
 &nbsp; 
+
 ## **BACKUP INSTRUCTIONS:**
+
 &nbsp;
 
 __Login as root__
@@ -56,7 +58,10 @@ cd
 git clone https://github.com/calr0x/OT-Smoothbrain-Backup.git
 ```
 ```
-cd OT-Smoothbrain-Backup
+git clone https://github.com/calr0x/OT-Settings.git
+```
+```
+cd OT-Settings
 ```
 ```
 nano config.sh
@@ -87,7 +92,7 @@ source config.sh
 ```
 &nbsp;
 
-__IF YOU ARE RESTORING A BACKUP ON A NEW SERVER STOP HERE AND RESTURN TO THE RESTORE DIRECTIONS FOR THE NEXT STEP!__  
+__IF YOU ARE RESTORING A BACKUP ON A NEW SERVER STOP HERE AND RETURN TO THE [RESTORE DIRECTIONS](#restore-instructions) FOR THE NEXT STEP!__  
 &nbsp;
 
 ```
@@ -137,12 +142,15 @@ apt install git
 ```
 git clone https://github.com/calr0x/OT-Smoothbrain-Backup.git
 ```
-Install Smoothbrain-Backup by following the install directions until directed to return here.
+```
+git clone https://github.com/calr0x/OT-Settings.git
+```
+Install Smoothbrain-Backup and OT-Settings by following the [install directions](#backup-instructions) until directed to return here.
 
 ```
 ./restic snapshots
 ```
-If this doesn't work there is a problem in the Smoothbrain config. Correct the issue by running the commands below and retry ./restic snapshots:
+If this doesn't work there is a problem in the OT-Settings config. Correct the issue by running the commands below and retry ./restic snapshots:
 ```
 nano config.sh
 ```
@@ -161,15 +169,11 @@ For example:
 ```
 Review list of snapshots for that node.  
 ```
-./restic restore SNAPSHOT_ID --target /root (replace "SNAPSHOT_ID" with 8 digit snapshot id which you want to restore, newest is the bottom one)
-Do the following command
-cp /root/OT-Smoothbrain-Backup/backup/.origintrail_noderc /root/.origintrail_noderc
+./restic restore SNAPSHOT_ID --target /root
+```
+(replace "SNAPSHOT_ID" with 8 digit snapshot id which you want to restore, newest is the bottom one)
 Edit the IP if it has changed with:
+```
 nano /root/.origintrail_noderc
-Move the backup folder from /root/backup/root/OT-Smoothbrain-Backup/backup/ to /backup with the following command:
-mv /root/backup/root/OT-Smoothbrain-Backup/backup/ /root/
-Do restore steps 7-8 of (https://otnode.com/node-backup/)
-Edit restore.sh using this command:
-nano /root/restore.sh
-#change backup directory BACKUPDIR="none" to BACKUPDIR="OT-Smoothbrain-Backup/backup"
-Step 9 of otnode restore guide, being ./restore.sh
+```
+Do restore steps 7-8 of (https://otnode.com/node-backup/)  
