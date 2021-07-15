@@ -36,7 +36,8 @@
 ####################################################################################
 
 - name: Install and configure Restic backups for OriginTrail nodes...
-  hosts: all
+  hosts: otnodes
+  vars_files: "/root/OT-Ansible-Files-and-Playbooks/config-otnode-ansible.yml"
   gather_facts: no
 
   tasks:
@@ -80,13 +81,13 @@
     shell: /root/OT-Smoothbrain-Backup/data/link-merged.sh
 
   - name: Add backup schedule to cron (every 6 hours)
-    cron:
-      name: "Restic backup"
-      minute: "0"
-      hour: "*/6"
-      day: "*"
-      month: "*"
-      weekday: "*"
+      cron:
+        name: "restic backup"
+        minute: "{{ backup_minute }}"
+        hour: "{{ backup_hour }}"
+        day: "{{ backup_day }}"
+        month: "{{ backup_month }}"
+        weekday: "{{ backup_weekday }}"
       job: "/root/OT-Smoothbrain-Backup/restic-backup.sh"
 
   - name: Stop Cosmic_Overlay backup script (if present)
