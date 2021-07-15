@@ -1,5 +1,7 @@
 # __OT-Smoothbrain-Backup__
 
+__Only works for dockerless nodes__
+
 Automated and self sustaining backup system for OriginTrail Nodes using restic snapshots 
 
 ## __Key advantages of OT-Smoothbrain-Backup:__  
