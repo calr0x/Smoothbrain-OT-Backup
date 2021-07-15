@@ -78,6 +78,14 @@ The following command will schedule a daily cleanup of the restic repository to 
 ```
 (crontab -l 2>/dev/null; echo "0 3 * * * /root/OT-Smoothbrain-Backup/restic-cleanup.sh") | crontab -
 ```
+If you even encounter an error stating there's a restic lock, run
+```
+source /root/OT-Settings/config.sh
+```
+```
+./root/OT-Smoothbrain-Backup/restic unlock
+```
+
 __Automated SmoothBrain backup done!__
 
 __For restore instructions, follow OT-DockSucker repository instructions !__
