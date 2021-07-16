@@ -1,6 +1,8 @@
 # __OT-Smoothbrain-Backup__
 
-__Only works for dockerless nodes__
+__Only works on dockerless nodes__
+
+__Do not use this repository to try and backup your docker node to restore on dockerless with OT-DockSucker, use other methods on otnode.com to backup and restore first__
 
 Automated and self sustaining backup system for OriginTrail Nodes using restic snapshots 
 
