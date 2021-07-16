@@ -1,5 +1,9 @@
 # __OT-Smoothbrain-Backup__
 
+__Only works on dockerless nodes__
+
+__Do not use this repository to try and backup your docker node to restore on dockerless with OT-DockSucker, use other methods on otnode.com to backup and restore first__
+
 Automated and self sustaining backup system for OriginTrail Nodes using restic snapshots 
 
 ## __Key advantages of OT-Smoothbrain-Backup:__  
@@ -78,6 +82,14 @@ The following command will schedule a daily cleanup of the restic repository to 
 ```
 (crontab -l 2>/dev/null; echo "0 3 * * * /root/OT-Smoothbrain-Backup/restic-cleanup.sh") | crontab -
 ```
+If you even encounter an error stating there's a restic lock, run
+```
+source /root/OT-Settings/config.sh
+```
+```
+./root/OT-Smoothbrain-Backup/restic unlock
+```
+
 __Automated SmoothBrain backup done!__
 
 __For restore instructions, follow OT-DockSucker repository instructions !__
