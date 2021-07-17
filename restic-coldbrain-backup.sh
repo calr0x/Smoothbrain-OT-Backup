@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Initial version of ColdBrain Backup!
+# This only works on dockerless nodes !
 # This will stop the node and then the arangodb server, backup any changed data directly from the arango folder, and then restart arango, and then the node.
 # The initial backup will take some time!
 
