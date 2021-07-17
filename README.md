@@ -41,7 +41,9 @@ chmod +x restic
 
 The following section will help automate restic backups of your current __dockerless__ node
 
-__Login as root__
+### __Initial setup:__
+
+First, log in as root
 ```
 cd
 ```
@@ -53,16 +55,7 @@ git clone https://github.com/calr0x/OT-Settings.git
 ```
 __Follow OT-Settings repository instructions to complete that section FIRST before proceeding__
 ```
-cd
-```
-```
-cd OT-Settings
-```
-```
-source config.sh
-```
-```
-cd
+source /root/OT-Settings/config.sh
 ```
 ```
 cd OT-Smoothbrain-Backup
@@ -70,18 +63,29 @@ cd OT-Smoothbrain-Backup
 ```
 ./restic init
 ```
+### __Configure crontab:__
+
 The below command will automate a restic backup every 6 hours starting from midnight. You can change the frequency if you want, and to guide you, consult : https://crontab.guru/
 ```
 (crontab -l 2>/dev/null; echo "0 */6 * * * /root/OT-Smoothbrain-Backup/restic-backup.sh") | crontab -
 ```
-__To run an initial backup immediately:__
+The below command will automate a restic cleanup (prune) every day at 3am. You can change the frequency if you want. 
+```
+(crontab -l 2>/dev/null; echo "0 3 * * * /root/OT-Smoothbrain-Backup/restic-cleanup.sh") | crontab -
+```
+
+### __To run a backup immediately:__
 ```
 ./restic-backup.sh
 ```
+
+### __Backup cleanup:__
+
 The following command will schedule a daily cleanup of the restic repository to clear old backup snapshots. It is __not__ to be run on every server. It must be installed on only one server and can be a node or a Linux server that's not a node.
 ```
 (crontab -l 2>/dev/null; echo "0 3 * * * /root/OT-Smoothbrain-Backup/restic-cleanup.sh") | crontab -
 ```
+\
 If you even encounter an error stating there's a restic lock, run
 ```
 source /root/OT-Settings/config.sh
@@ -89,7 +93,7 @@ source /root/OT-Settings/config.sh
 ```
 ./root/OT-Smoothbrain-Backup/restic unlock
 ```
+\
+Automated SmoothBrain backup done!
 
-__Automated SmoothBrain backup done!__
-
-__For restore instructions, follow OT-DockSucker repository instructions !__
+For restore instructions, follow OT-DockSucker repository instructions !
