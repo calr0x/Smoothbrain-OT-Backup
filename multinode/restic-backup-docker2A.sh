@@ -21,7 +21,7 @@ fi
 
 
 echo "Backing up OT Node data"
-docker exec otnode node scripts/backup.js --config=/ot-node/.origintrail_noderc --configDir=/ot-node/data --backupDirectory=/ot-node/backup  2>&1
+docker exec otnode2 node scripts/backup.js --config=/ot-node/.origintrail_noderc --configDir=/ot-node/data --backupDirectory=/ot-node/backup  2>&1
 echo $?
 if [ $? == 1 ]; then
   /root/OT-Settings/data/send.sh "OT docker backup command FAILED"
