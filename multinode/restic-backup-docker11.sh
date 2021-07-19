@@ -1,4 +1,5 @@
 #!/bin/bash
+
 source "/root/OT-Settings/config.sh"
 STATUS=$?
 N1=$'\n'

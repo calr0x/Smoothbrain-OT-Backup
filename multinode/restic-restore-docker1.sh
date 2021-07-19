@@ -1,4 +1,4 @@
-##!/bin/bash
+#!/bin/bash
 
 BACKUPDIR="backup"
 CONFIGDIR="/ot-node/data"
