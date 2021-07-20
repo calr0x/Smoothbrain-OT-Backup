@@ -11,8 +11,16 @@ N1=$'\n'
 echo "Stopping otnode"
 systemctl stop otnode
 
+if [ $? -ne 0 ]; then
+  /root/OT-Settings/data/send.sh "Stopping otnode service failed during backup."
+fi
+
 echo "Stopping arangodb3"
 systemctl stop arangodb3
+
+if [ $? -ne 0 ]; then
+  /root/OT-Settings/data/send.sh "Stopping arangodb3 service failed during backup."
+fi
 
 echo "Uploading data to Amazon S3"
 
@@ -23,12 +31,30 @@ if [ $? -eq 0 ]; then
 else
   /root/OT-Settings/data/send.sh "Uploading backup to S3 FAILED:${N1}$OUTPUT"
   systemctl start arangodb3
+  
+  if [ $? -ne 0 ]; then
+    /root/OT-Settings/data/send.sh "Starting arangodb3 service failed during backup."
+  fi
   systemctl start otnode
+  
+  if [ $? -ne 0 ]; then
+    /root/OT-Settings/data/send.sh "Starting otnode service failed during backup."
+  fi
+  
   exit 1
 fi
 
 echo "Starting otnode and arangodb3"
 systemctl start arangodb3
+
+if [ $? -ne 0 ]; then
+  /root/OT-Settings/data/send.sh "Starting arangodb3 service failed during backup."
+fi
+
 systemctl start otnode
+
+if [ $? -ne 0 ]; then
+  /root/OT-Settings/data/send.sh "Starting otnode service failed during backup."
+fi
 
 exit 0
