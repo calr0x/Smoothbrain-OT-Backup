@@ -27,7 +27,7 @@ echo "Uploading data to Amazon S3"
 OUTPUT=$(/root/OT-Smoothbrain-Backup/restic backup --tag coldbackup /ot-node/current/.origintrail_noderc /root/.origintrail_noderc /var/lib/arangodb3 /var/lib/arangodb3-apps 2>&1)
 
 if [ $? -eq 0 ]; then
-  if $SMOOTHBRAIN_NOTIFY_ON_SUCCESS == "true"
+  if $SMOOTHBRAIN_NOTIFY_ON_SUCCESS == "true"; then
     /root/OT-Settings/data/send.sh "Backup SUCCESSFUL:${N1}$OUTPUT"
   fi
 else
