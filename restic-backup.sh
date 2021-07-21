@@ -12,7 +12,7 @@ echo "Backing up OT Node data"
 OUTPUT=$(node /ot-node/current/scripts/backup.js --config=/ot-node/current/.origintrail_noderc --configDir=/root/.origintrail_noderc/mainnet --backupDirectory=/root/backup  2>&1)
 
 if [ $? == 1 ]; then
-  /root/OT-Settings/data/send.sh "OT docker backup command FAILED:${N1}$OUTPUT"
+  /root/OT-Settings/data/send.sh "OT backup command FAILED:${N1}$OUTPUT"
   exit 1
 fi
 echo $?
