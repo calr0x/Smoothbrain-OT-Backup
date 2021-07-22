@@ -48,7 +48,7 @@ echo "Uploading data to Amazon S3"
 OUTPUT=$(/root/OT-Smoothbrain-Backup/restic backup /root/backup/.origintrail_noderc /root/backup/* 2>&1)
 
 if [ $? -eq 0 ]; then
-  if $SMOOTHBRAIN_NOTIFY_ON_SUCCESS == "true"; then
+  if [ $SMOOTHBRAIN_NOTIFY_ON_SUCCESS == "true" ]; then
     /root/OT-Settings/data/send.sh "Backup SUCCESSFUL:${N1}$OUTPUT"
     rm -rf /root/backup/* /root/backup/.origintrail_noderc
   fi
