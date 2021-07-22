@@ -6,6 +6,9 @@ N1=$'\n'
 
 ln -s /ot-node/backup /root/backup
 
+echo "Deleting previous backups" 
+rm -rf /root/backup/* /root/backup/.origintrail_noderc
+
 cd /ot-node/current
 
 echo "Backing up OT Node data"
