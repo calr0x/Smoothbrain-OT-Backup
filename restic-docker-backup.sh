@@ -1,5 +1,5 @@
 #!/bin/bash
-source "/root/OT-Smoothbrain-Backup/config.sh"
+source "/root/OT-Settings/config.sh"
 STATUS=$?
 N1=$'\n'
 
