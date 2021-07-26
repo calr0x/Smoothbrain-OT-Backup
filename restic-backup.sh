@@ -6,13 +6,16 @@ N1=$'\n'
 
 ln -s /ot-node/backup /root/backup
 
+echo "Deleting previous backups" 
+rm -rf /root/backup/* /root/backup/.origintrail_noderc
+
 cd /ot-node/current
 
 echo "Backing up OT Node data"
 OUTPUT=$(node /ot-node/current/scripts/backup.js --config=/ot-node/current/.origintrail_noderc --configDir=/root/.origintrail_noderc/mainnet --backupDirectory=/root/backup  2>&1)
 
 if [ $? == 1 ]; then
-  /root/OT-Settings/data/send.sh "OT docker backup command FAILED:${N1}$OUTPUT"
+  /root/OT-Settings/data/send.sh "OT backup command FAILED:${N1}$OUTPUT"
   exit 1
 fi
 echo $?
@@ -48,8 +51,10 @@ echo "Uploading data to Amazon S3"
 OUTPUT=$(/root/OT-Smoothbrain-Backup/restic backup /root/backup/.origintrail_noderc /root/backup/* 2>&1)
 
 if [ $? -eq 0 ]; then
-  /root/OT-Settings/data/send.sh "Backup SUCCESSFUL:${N1}$OUTPUT"
-  rm -rf /root/backup/* /root/backup/.origintrail_noderc
+  if [ $SMOOTHBRAIN_NOTIFY_ON_SUCCESS == "true" ]; then
+    /root/OT-Settings/data/send.sh "Backup SUCCESSFUL:${N1}$OUTPUT"
+    rm -rf /root/backup/* /root/backup/.origintrail_noderc
+  fi
 else
   /root/OT-Settings/data/send.sh "Uploading backup to S3 FAILED:${N1}$OUTPUT"
   exit 1
