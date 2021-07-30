@@ -11,48 +11,48 @@ fi
 echo "Linking container backup folder to /root/backup"
 ln -sf "$(docker inspect --format='{{.GraphDriver.Data.MergedDir}}' otnode)/ot-node/backup" /root/backup/
 
-echo $STATUS
-if [ $STATUS == 1 ]; then
+if [ $? -eq 1 ]; then
   /root/OT-Settings/data/send.sh "Linking container backup folder command FAILED"
   exit 1
 fi
 
 echo "Backing up OT Node data"
 docker exec otnode node scripts/backup.js --config=/ot-node/.origintrail_noderc --configDir=/ot-node/data --backupDirectory=/ot-node/backup  2>&1
-echo $?
-if [ $? == 1 ]; then
+
+if [ $? -eq 1 ]; then
   /root/OT-Settings/data/send.sh "OT docker backup command FAILED"
   exit 1
 fi
 
 echo "Moving data out of dated folder into backup"
 mv -v /root/backup/202*/* /root/backup/ 2>&1
-echo $?
-if [ $? == 1 ]; then
+
+if [ $? -eq 1 ]; then
   /root/OT-Settings/data/send.sh "Moving data command FAILED"
   exit 1
 fi
 
 echo "Moving hidden data out of dated folder into backup"
 mv -v /root/backup/*/.origintrail_noderc /root/backup/ 2>&1
-echo $?
-if [ $? == 1 ]; then
+
+if [ $? -eq 1 ]; then
   /root/OT-Settings/data/send.sh "Moving hidden data command FAILED"
   exit 1
 fi
 
 echo "Deleting dated folder"
 rm -rf /root/backup/202* 2>&1
-echo $?
-if [ $? == 1 ]; then
+
+if [ $? -eq 1 ]; then
   /root/OT-Settings/data/send.sh "Deleting data folder command FAILED"
   exit 1
 fi
 
 echo "Uploading data to Amazon S3"
 OUTPUT=$(/root/OT-Smoothbrain-Backup/restic backup /root/backup/.origintrail_noderc /root/backup/* 2>&1)
+RESTIC_SUCCESS=$?
 echo $OUTPUT
-if [ $? -eq 0 ]; then
+if [ $RESTIC_SUCCESS -eq 0 ]; then
   /root/OT-Settings/data/send.sh "Backup SUCCESSFUL:${N1}$OUTPUT"
   rm -rf /root/backup
 else
