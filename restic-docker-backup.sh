@@ -16,6 +16,9 @@ if [ $? -eq 1 ]; then
   exit 1
 fi
 
+echo "Deleting exiting backups"
+rm -rf /root/backup/*
+
 echo "Backing up OT Node data"
 docker exec otnode node scripts/backup.js --config=/ot-node/.origintrail_noderc --configDir=/ot-node/data --backupDirectory=/ot-node/backup  2>&1
 
