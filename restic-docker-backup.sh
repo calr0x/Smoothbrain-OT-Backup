@@ -3,21 +3,19 @@ source "/root/OT-Settings/config.sh"
 STATUS=$?
 N1=$'\n'
 
-rm -rf /root/backup/* /root/backup/.origintrail_noderc
-echo $STATUS
-if [ $STATUS == 1 ]; then
-  /root/OT-Settings/data/send.sh "Delete backup folder contents FAILED"
-  exit 1
+if [ -d "/root/backup" ]; then
+  echo "Deleting existing backup folder"
+  rm -rf /root/backup
 fi
 
-echo "Linking container backup folder to /root/OT-Smoothbrain-Backup/backup"
+echo "Linking container backup folder to /root/backup"
 ln -sf "$(docker inspect --format='{{.GraphDriver.Data.MergedDir}}' otnode)/ot-node/backup" /root/backup/
+
 echo $STATUS
 if [ $STATUS == 1 ]; then
   /root/OT-Settings/data/send.sh "Linking container backup folder command FAILED"
   exit 1
 fi
-
 
 echo "Backing up OT Node data"
 docker exec otnode node scripts/backup.js --config=/ot-node/.origintrail_noderc --configDir=/ot-node/data --backupDirectory=/ot-node/backup  2>&1
@@ -43,7 +41,6 @@ if [ $? == 1 ]; then
   exit 1
 fi
 
-
 echo "Deleting dated folder"
 rm -rf /root/backup/202* 2>&1
 echo $?
@@ -57,7 +54,7 @@ OUTPUT=$(/root/OT-Smoothbrain-Backup/restic backup /root/backup/.origintrail_nod
 echo $OUTPUT
 if [ $? -eq 0 ]; then
   /root/OT-Settings/data/send.sh "Backup SUCCESSFUL:${N1}$OUTPUT"
-  rm -rf /root/backup/* /root/backup/.origintrail_noderc
+  rm -rf /root/backup
 else
   /root/OT-Settings/data/send.sh "Uploading backup to S3 FAILED:${N1}$OUTPUT"
   exit 1
