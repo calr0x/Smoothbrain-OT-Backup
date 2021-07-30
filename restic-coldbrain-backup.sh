@@ -51,12 +51,14 @@ systemctl start arangodb3
 
 if [ $? -ne 0 ]; then
   /root/OT-Settings/data/send.sh "Starting arangodb3 service failed during backup."
+  exit 1
 fi
 
 systemctl start otnode
 
 if [ $? -ne 0 ]; then
   /root/OT-Settings/data/send.sh "Starting otnode service failed during backup."
+  exit 1
 fi
 
 exit 0
