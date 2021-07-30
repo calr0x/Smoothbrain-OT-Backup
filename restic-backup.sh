@@ -1,13 +1,15 @@
 #!/bin/bash
-#
+
 source "/root/OT-Settings/config.sh"
 STATUS=$?
 N1=$'\n'
 
-ln -s /ot-node/backup /root/backup
+if [ -d "/root/backup" ]; then
+  echo "Deleting existing backup folder"
+  rm -rf /root/backup
+fi
 
-echo "Deleting previous backups" 
-rm -rf /root/backup/* /root/backup/.origintrail_noderc
+ln -s /ot-node/backup /root/backup
 
 cd /ot-node/current
 
