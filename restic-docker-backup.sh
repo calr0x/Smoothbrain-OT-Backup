@@ -9,7 +9,7 @@ if [ -d "/root/backup" ]; then
 fi
 
 echo "Linking container backup folder to /root/backup"
-ln -sf "$(docker inspect --format='{{.GraphDriver.Data.MergedDir}}' otnode)/ot-node/backup" /root/backup/
+ln -sf "$(docker inspect --format='{{.GraphDriver.Data.MergedDir}}' otnode)/ot-node/backup" /root/backup
 
 if [ $? -eq 1 ]; then
   /root/OT-Settings/data/send.sh "Linking container backup folder command FAILED"
