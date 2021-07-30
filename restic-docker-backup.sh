@@ -16,7 +16,7 @@ if [ $? -eq 1 ]; then
   exit 1
 fi
 
-echo "Deleting exiting backups"
+echo "Deleting any exiting backups inside container"
 rm -rf /root/backup/*
 
 echo "Backing up OT Node data"
