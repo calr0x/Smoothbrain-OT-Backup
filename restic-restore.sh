@@ -6,14 +6,17 @@ CONFIGDIR="/root/.origintrail_noderc/mainnet"
 temp_folder=$BACKUPDIR
 
 for file in `ls ${BACKUPDIR}`; do
-    if [ ! ${file}] == "arangodb" ]
+    if [ ! ${file} == "arangodb" ]
     then
-      sourcePath="${BACKUPDIR}/${file}"
-      destinationPath="${CONFIGDIR}/"
+      if [ ! ${file} == "migrations" ]
+      then
+        sourcePath="${BACKUPDIR}/${file}"
+        destinationPath="${CONFIGDIR}/"
 
-      sourcePath=${temp_folder}/${file}
-      echo "cp ${sourcePath} ${destinationPath}"
-      cp ${sourcePath} ${destinationPath}
+        sourcePath=${temp_folder}/${file}
+        echo "cp ${sourcePath} ${destinationPath}"
+        cp ${sourcePath} ${destinationPath}
+      fi
     fi
 done
 
