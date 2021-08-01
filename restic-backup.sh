@@ -27,7 +27,7 @@ echo "Moving data out of dated folder into backup"
 OUTPUT = $(mv -v /root/backup/202*/* /root/backup/ 2 > &1)
 
 if [$? -eq 1]; then
-/root/OT-Settings/data/send.sh "Moving data command FAILED::$ {     
+/root/OT-Settings/data/send.sh "Moving data command FAILED::$ {         
     N1
 }$OUTPUT"
 exit 1
