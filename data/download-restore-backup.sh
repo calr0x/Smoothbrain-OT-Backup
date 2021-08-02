@@ -54,6 +54,7 @@ else
   rm -rf /var/lib/arangodb3 /var/lib/arangodb3-apps /ot-node/data
   mv -v /root/smoothbrain-temp/var/lib/docker/overlay2/*/diff/ot-node/data $(docker inspect --format='{{.GraphDriver.Data.UpperDir}}' otnode)/ot-node/data
   mv -v /root/smoothbrain-temp/var/lib/docker/overlay2/*/diff/var/lib/* $(docker inspect --format='{{.GraphDriver.Data.UpperDir}}' otnode)/var/lib/
+  rm -rf /root/smoothbrain-temp
   docker exec otnode node scripts/update-arango-password.sh
   docker start otnode
 fi
