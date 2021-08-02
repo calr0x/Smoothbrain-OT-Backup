@@ -38,7 +38,7 @@ if [ $RESTORETYPE == "dockerless" ]; then
   systemctl stop arangodb3
   /root/OT-Smoothbrain-Backup/restic restore $SNAPSHOT --target /
 
-  if [[ $? -ne 0 ]]; then
+  if [ $? -ne 0 ]; then
     exit 1
   fi
 
@@ -47,9 +47,14 @@ if [ $RESTORETYPE == "dockerless" ]; then
   systemctl start otnode
 else
   exit
-  ln -s "$(docker inspect --format='{{.GraphDriver.Data.MergedDir}}' otnode)/" root/smoothbrain-temp
-  rm -rf /var/lib arangodb3 /var/lib/arangodb3-apps
-  /root/OT-Smoothbrain-Backup/restic restore $SNAPSHOT --target /root/smoothbrain-temp
+  docker stop otnode
+  mkdir /root/smoothbrain-temp
+  /root/OT-Smoothbrain-Backup/restic restore $SNAPSHOT --target / --include /root/.origintrail_noderc
+  /root/OT-Smoothbrain-Backup/restic restore $SNAPSHOT --target /root/smoothbrain-temp --exclude /root/.origintrail_noderc
+  rm -rf /var/lib/arangodb3 /var/lib/arangodb3-apps /ot-node/data
+  mv -v /root/smoothbrain-temp/var/lib/docker/overlay2/*/diff/ot-node/data $(docker inspect --format='{{.GraphDriver.Data.UpperDir}}' otnode)/ot-node/data
+  mv -v /root/smoothbrain-temp/var/lib/docker/overlay2/*/diff/var/lib/* $(docker inspect --format='{{.GraphDriver.Data.UpperDir}}' otnode)/var/lib/
   docker exec otnode node scripts/update-arango-password.sh
-  rm -rf /root/smoothbrain-temp
+  docker start otnode
 fi
+
