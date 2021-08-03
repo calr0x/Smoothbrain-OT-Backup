@@ -1,8 +1,8 @@
 #!/bin/bash
 
 source "/root/OT-Settings/config.sh"
-STATUS = $?
-N1 = $'\n'
+STATUS=$?
+N1=$'\n'
 
 if [-d "/root/backup"]; then
 echo "Deleting existing backup folder"
