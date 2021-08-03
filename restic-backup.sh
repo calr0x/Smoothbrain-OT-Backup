@@ -4,7 +4,7 @@ source "/root/OT-Settings/config.sh"
 STATUS=$?
 N1=$'\n'
 
-if [-d "/root/backup"]; then
+if [[ -d "/root/backup" ]]; then
 echo "Deleting existing backup folder"
 rm -rf /root/backup
 fi
