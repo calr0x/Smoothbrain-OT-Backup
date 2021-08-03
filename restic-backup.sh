@@ -9,7 +9,7 @@ if [ -d "/root/backup" ]; then
   rm -rf /root/backup
 fi
 
-ln -s /ot-node/backup /root/backup
+ln -s /ot-node/backup /root
 
 cd /ot-node/current
 
