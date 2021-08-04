@@ -50,6 +50,6 @@ else
   ln -s "$(docker inspect --format='{{.GraphDriver.Data.MergedDir}}' otnode)/" root/smoothbrain-temp
   rm -rf /var/lib arangodb3 /var/lib/arangodb3-apps
   /root/OT-Smoothbrain-Backup/restic restore $SNAPSHOT --target /root/smoothbrain-temp
-  docker exec otnode node scripts/update-arango-password.sh
+  docker exec otnode ./scripts/update-arango-password.sh
   rm -rf /root/smoothbrain-temp
 fi
