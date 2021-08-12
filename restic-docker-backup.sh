@@ -57,7 +57,7 @@ RESTIC_SUCCESS=$?
 echo $OUTPUT
 if [ $RESTIC_SUCCESS -eq 0 ]; then
   /root/OT-Settings/data/send.sh "Backup SUCCESSFUL:${N1}$OUTPUT"
-  rm -rf /root/backup
+  rm -rf /root/backup/*
 else
   /root/OT-Settings/data/send.sh "Uploading backup to S3 FAILED:${N1}$OUTPUT"
   exit 1
