@@ -22,7 +22,7 @@ if [ $? -ne 0 ]; then
   /root/OT-Settings/data/send.sh "Stopping arangodb3 service failed during backup."
 fi
 
-echo "Uploading data to Amazon S3"
+echo "Uploading data to backup server"
 
 OUTPUT=$(/root/OT-Smoothbrain-Backup/restic backup --tag coldbackup /ot-node/current/.origintrail_noderc /root/.origintrail_noderc /var/lib/arangodb3 /var/lib/arangodb3-apps 2>&1)
 
