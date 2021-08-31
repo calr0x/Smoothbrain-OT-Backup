@@ -26,7 +26,7 @@ echo "Uploading data to backup server"
 
 OUTPUT=$(/root/OT-Smoothbrain-Backup/restic backup --tag coldbackup /ot-node/current/.origintrail_noderc /root/.origintrail_noderc /var/lib/arangodb3 /var/lib/arangodb3-apps 2>&1)
 
-if [ $? -eq 0 ]; then
+if [[ $? -eq 0 ]]; then
   if [[ $SMOOTHBRAIN_NOTIFY_ON_SUCCESS == "" ]]; then
     $SMOOTHBRAIN_NOTIFY_ON_SUCCESS="true"
   fi
