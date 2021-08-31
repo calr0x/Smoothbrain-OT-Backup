@@ -28,7 +28,7 @@ OUTPUT=$(/root/OT-Smoothbrain-Backup/restic backup --tag coldbackup /ot-node/cur
 
 if [[ $? -eq 0 ]]; then
   if [[ $SMOOTHBRAIN_NOTIFY_ON_SUCCESS == "" ]]; then
-    $SMOOTHBRAIN_NOTIFY_ON_SUCCESS="true"
+    SMOOTHBRAIN_NOTIFY_ON_SUCCESS="true"
   fi
   if [[ $SMOOTHBRAIN_NOTIFY_ON_SUCCESS == "true" ]]; then
     /root/OT-Settings/data/send.sh "Backup SUCCESSFUL:${N1}$OUTPUT"
