@@ -11,14 +11,14 @@ N1=$'\n'
 echo "Stopping otnode"
 systemctl stop otnode
 
-if [ $? -ne 0 ]; then
+if [[ $? -ne 0 ]]; then
   /root/OT-Settings/data/send.sh "Stopping otnode service failed during backup."
 fi
 
 echo "Stopping arangodb3"
 systemctl stop arangodb3
 
-if [ $? -ne 0 ]; then
+if [[ $? -ne 0 ]]; then
   /root/OT-Settings/data/send.sh "Stopping arangodb3 service failed during backup."
 fi
 
@@ -27,22 +27,22 @@ echo "Uploading data to backup server"
 OUTPUT=$(/root/OT-Smoothbrain-Backup/restic backup --tag coldbackup /ot-node/current/.origintrail_noderc /root/.origintrail_noderc /var/lib/arangodb3 /var/lib/arangodb3-apps 2>&1)
 
 if [ $? -eq 0 ]; then
-  if [ $SMOOTHBRAIN_NOTIFY_ON_SUCCESS == "" ]; then
+  if [[ $SMOOTHBRAIN_NOTIFY_ON_SUCCESS == "" ]]; then
     $SMOOTHBRAIN_NOTIFY_ON_SUCCESS="true"
   fi
-  if [ $SMOOTHBRAIN_NOTIFY_ON_SUCCESS == "true" ]; then
+  if [[ $SMOOTHBRAIN_NOTIFY_ON_SUCCESS == "true" ]]; then
     /root/OT-Settings/data/send.sh "Backup SUCCESSFUL:${N1}$OUTPUT"
   fi
 else
   /root/OT-Settings/data/send.sh "Uploading backup to S3 FAILED:${N1}$OUTPUT"
   systemctl start arangodb3
   
-  if [ $? -ne 0 ]; then
+  if [[ $? -ne 0 ]]; then
     /root/OT-Settings/data/send.sh "Starting arangodb3 service failed during backup."
   fi
   systemctl start otnode
   
-  if [ $? -ne 0 ]; then
+  if [[ $? -ne 0 ]]; then
     /root/OT-Settings/data/send.sh "Starting otnode service failed during backup."
   fi
   
@@ -52,14 +52,14 @@ fi
 echo "Starting otnode and arangodb3"
 systemctl start arangodb3
 
-if [ $? -ne 0 ]; then
+if [[ $? -ne 0 ]]; then
   /root/OT-Settings/data/send.sh "Starting arangodb3 service failed during backup."
   exit 1
 fi
 
 systemctl start otnode
 
-if [ $? -ne 0 ]; then
+if [[ $? -ne 0 ]]; then
   /root/OT-Settings/data/send.sh "Starting otnode service failed during backup."
   exit 1
 fi
