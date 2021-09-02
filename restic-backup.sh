@@ -5,12 +5,10 @@ STATUS=$?
 N1=$'\n'
 
 if [ -d "/root/backup" ]; then
-  echo "Deleting existing backup folder"
-  rm -rf /root/backup
+  echo "Deleting existing backup folder contents"
+  rm -rf /root/backup/* /root/backup/.*
   echo "Success!"
 fi
-
-ln -s /ot-node/backup /root
 
 cd /ot-node/current
 
