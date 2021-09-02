@@ -6,8 +6,7 @@ N1=$'\n'
 
 if [ -d "/root/backup" ]; then
   echo "Deleting existing backup folder contents"
-  rm -rf /root/backup/* /root/backup/.*
-  echo "Success!"
+  rm -rf /root/backup/* /root/backup/.origintrail_noderc
 fi
 
 cd /ot-node/current
