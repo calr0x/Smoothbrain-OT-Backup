@@ -63,7 +63,7 @@ if [ $? -eq 0 ]; then
   fi
   if [ $SMOOTHBRAIN_NOTIFY_ON_SUCCESS == "true" ]; then
     /root/OT-Settings/data/send.sh "Backup SUCCESSFUL:${N1}$OUTPUT"
-    exho "Deleting the backup directory"
+    echo "Deleting the backup directory"
     rm -rf $BACKUPDIR
   fi
 else
