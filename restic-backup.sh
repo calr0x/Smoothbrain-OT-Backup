@@ -3,7 +3,7 @@
 source "/root/OT-Settings/config.sh"
 STATUS=$?
 N1=$'\n'
-BACKUPDIR=/ot-node/backup/
+BACKUPDIR=/ot-node/backup
 
 if [ -d "/root/backup" ]; then
   echo "Deleting existing backup folder contents"
