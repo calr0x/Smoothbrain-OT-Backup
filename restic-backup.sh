@@ -15,7 +15,7 @@ fi
 cd /ot-node/current
 
 echo "Backing up OT Node data"
-OUTPUT=$(node /ot-node/current/scripts/backup.js --config=/ot-node/current/.origintrail_noderc --configDir=/root/.origintrail_noderc/mainnet --backup_directory=$BACKUPDIR 2>&1 | tee /dev/tty )
+OUTPUT=$(node /ot-node/current/scripts/backup.js --config=/ot-node/current/.origintrail_noderc --configDir=/root/.origintrail_noderc/mainnet --backup_directory=$BACKUPDIR 2>&1 )
 
 if [ $? -eq 1 ]; then
   /root/OT-Settings/data/send.sh "OT backup command FAILED:${N1}$OUTPUT"
