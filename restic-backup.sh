@@ -5,7 +5,7 @@ STATUS=$?
 N1=$'\n'
 BACKUPDIR=/ot-node/backup
 
-if [ -d "/root/backup" ]; then
+if [ -d "$BACKUPDIR" ]; then
   echo "Deleting existing backup folder contents"
   rm -rf $BACKUPDIR/* $BACKUPDIR/.origintrail_noderc
 else
