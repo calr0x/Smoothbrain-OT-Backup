@@ -63,7 +63,8 @@ if [ $? -eq 0 ]; then
   fi
   if [ $SMOOTHBRAIN_NOTIFY_ON_SUCCESS == "true" ]; then
     /root/OT-Settings/data/send.sh "Backup SUCCESSFUL:${N1}$OUTPUT"
-  rm -rf $BACKUPDIR
+    exho "Deleting the backup directory"
+    rm -rf $BACKUPDIR
   fi
 else
   /root/OT-Settings/data/send.sh "Uploading backup to S3 FAILED:${N1}$OUTPUT"
