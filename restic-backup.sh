@@ -19,8 +19,8 @@ OUTPUT=$(node /ot-node/current/scripts/backup.js --config=/ot-node/current/.orig
 
 if [ $? -eq 1 ]; then
   /root/OT-Settings/data/send.sh "OT backup command FAILED:${N1}$OUTPUT"
-  exit 1
   echo "$OUTPUT"
+  exit 1
 fi
 echo "Success!"
 
