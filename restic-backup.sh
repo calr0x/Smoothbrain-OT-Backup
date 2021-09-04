@@ -8,6 +8,8 @@ BACKUPDIR=/ot-node/backup/
 if [ -d "/root/backup" ]; then
   echo "Deleting existing backup folder contents"
   rm -rf $BACKUPDIR/* $BACKUPDIR/.origintrail_noderc
+else
+  mkdir -p $BACKUPDIR
 fi
 
 cd /ot-node/current
