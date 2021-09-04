@@ -3,7 +3,7 @@
 source "/root/OT-Settings/config.sh"
 STATUS=$?
 N1=$'\n'
-BACKUPDIR=/ot-node/backup/
+BACKUPDIR=/root/backup/
 
 if [ -d "/root/backup" ]; then
   echo "Deleting existing backup folder contents"
@@ -13,7 +13,7 @@ fi
 cd /ot-node/current
 
 echo "Backing up OT Node data"
-OUTPUT=$(node /ot-node/current/scripts/backup.js --config=/ot-node/current/.origintrail_noderc --configDir=/root/.origintrail_noderc/mainnet 2>&1 | tee /dev/tty )
+OUTPUT=$(node /ot-node/current/scripts/backup.js --config=/ot-node/current/.origintrail_noderc --configDir=/root/.origintrail_noderc/mainnet --backupDirectory=$BACKUPDIR 2>&1 | tee /dev/tty )
 
 if [ $? == 1 ]; then
   /root/OT-Settings/data/send.sh "OT backup command FAILED:${N1}$OUTPUT"
