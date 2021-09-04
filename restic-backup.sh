@@ -25,7 +25,7 @@ fi
 echo "Success!"
 
 echo "Moving data out of dated folder into backup"
-OUTPUT=$(mv -v $BACKUPDIR/202*/* $BACKUPDIR/ 2>&1 | /dev/tty)
+OUTPUT=$(mv -v $BACKUPDIR/202*/* $BACKUPDIR/ 2>&1)
 
 if [ $? -eq 1 ]; then
   /root/OT-Settings/data/send.sh "Moving data command FAILED::${N1}$OUTPUT"
@@ -35,7 +35,7 @@ fi
 echo "Success!"
 
 echo "Moving hidden data out of dated folder into backup"
-OUTPUT=$(mv -v $BACKUPDIR/*/.origintrail_noderc $BACKUPDIR/ 2>&1 | /dev/tty)
+OUTPUT=$(mv -v $BACKUPDIR/*/.origintrail_noderc $BACKUPDIR/ 2>&1)
 
 if [ $? -eq 1 ]; then
   /root/OT-Settings/data/send.sh "Moving hidden data command FAILED:${N1}$OUTPUT"
@@ -45,7 +45,7 @@ fi
 echo "Success!"
 
 echo "Deleting dated folder"
-OUTPUT=$(rm -rf $BACKUPDIR/202* 2>&1 | /dev/tty)
+OUTPUT=$(rm -rf $BACKUPDIR/202* 2>&1)
 
 if [ $? -eq 1 ]; then
   /root/OT-Settings/data/send.sh "Deleting data folder command FAILED:${N1}$OUTPUT"
@@ -55,7 +55,7 @@ fi
 echo "Success!"
 
 echo "Uploading data to Amazon S3"
-OUTPUT=$(/root/OT-Smoothbrain-Backup/restic backup $BACKUPDIR/.origintrail_noderc $BACKUPDIR/* 2>&1 | /dev/tty)
+OUTPUT=$(/root/OT-Smoothbrain-Backup/restic backup $BACKUPDIR/.origintrail_noderc $BACKUPDIR/* 2>&1)
 
 if [ $? -eq 0 ]; then
   if [ $SMOOTHBRAIN_NOTIFY_ON_SUCCESS == "" ]; then
