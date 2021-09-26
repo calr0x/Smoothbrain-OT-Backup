@@ -1,5 +1,7 @@
 #!/bin/bash
 
+N1=$'\n'
+
 # Make repo dir
 mkdir -p /root/repo
 
@@ -19,7 +21,7 @@ echo "Installing daily clean-up cronjob at noon servertime"
 
 # Download additional tools
 
-apt install apache2-utils apg
+apt install apache2-utils apg -y
 
 # Create certificate
 
@@ -29,7 +31,7 @@ if [[ $ANSWER == "y" ]]; then
     read -p "Enter the FULL domain name for the backup server: " DOMAIN_NAME
 
     if [[ -f /root/private_key ]]; then
-    
+
         echo "Deleting existing keys"
         rm /root/private_key
         rm /root/public_key
@@ -39,9 +41,9 @@ if [[ $ANSWER == "y" ]]; then
 
     ufw allow 80 && ufw allow 443 && ufw allow 8000 && yes | ufw enable
 
-    apt install software-properties-common
+    apt install software-properties-common -y
     add-apt-repository universe
-    apt update && apt install certbot
+    apt update && apt install certbot -y
 
     certbot certonly --standalone -d $DOMAIN_NAME
 
@@ -59,10 +61,12 @@ fi
 USER=$(apg -a 1 -m 32 -n 1 -M NCL)
 PASS=$(apg -a 1 -m 32 -n 1 -M NCL)
 
-echo Creating user account and pass..
+echo "${N1}****************************************"
+echo "Creating user account and pass.."
 echo "User: $USER"
 echo "Pass: $PASS"
 echo "These credentials will be in /root/smoothbrain-server-credentials"
+echo "****************************************${N1}"
 echo "User: $USER" >> /root/smoothbrain-server-credentials
 echo "Pass: $PASS" >> /root/smoothbrain-server-credentials
 
@@ -75,15 +79,15 @@ fi
 
 systemctl daemon-reload
 
-echo "Enabling backup server on boot"
+echo "Enabling backup server on boot${N1}"
 systemctl enable rest-server
 
-echo "Starting backup server"
+echo "Starting backup server${N1}"
 systemctl start rest-server
 
 echo "Installation is complete! Edit the RESTIC_REPOSITORY line on each of your servers /root/OT-Settings/config.sh to the following:"
 if [[ $ANSWER == "y" ]];then
-    echo "RESTIC_REPOSITORY="rest:https://$USER:$PASS@$DOMAIN:8000/repo""
+    echo "RESTIC_REPOSITORY="rest:https://$USER:$PASS@$DOMAIN_NAME:8000/repo""
 else
     echo "RESTIC_REPOSITORY="rest:http://$USER:$PASS@$IP_ADDRESS:8000/repo""
 fi
