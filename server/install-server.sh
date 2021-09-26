@@ -9,6 +9,10 @@ mkdir -p /root/repo
 cd /root
 wget https://github.com/restic/rest-server/releases/download/v0.10.0/rest-server_0.10.0_linux_amd64.tar.gz
 
+if [[ ! -f /root/rest-server_0.10.0_linux_amd64.tar.gz ]];then
+    rm rest-server_0.10.0_linux_amd64.tar.gz
+fi
+
 tar zxfv rest-server_0.10.0_linux_amd64.tar.gz
 mv rest-server_0.10.0_linux_amd64/rest-server /usr/local/bin
 rm -rf rest-server_0.10.0_linux_amd64
