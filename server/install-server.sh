@@ -35,7 +35,9 @@ if [[ $ANSWER == "y" ]]; then
         echo "Deleting existing keys"
         rm /root/private_key
         rm /root/public_key
-        rm /etc/letsencrypt/live/$DOMAIN_NAME
+        rm /etc/letsencrypt/live/$DOMAIN_NAME*
+        rm /etc/letsencrypt/archive/$DOMAIN_NAME*
+        rm /etc/letsencrypt/renewal/$DOMAIN_NAME*
     fi
 
     ufw allow 80 && ufw allow 443 && ufw allow 8000 && yes | ufw enable
@@ -84,9 +86,9 @@ systemctl enable rest-server
 echo "Starting backup server${N1}"
 systemctl start rest-server
 
-echo "Installation is complete! Edit the RESTIC_REPOSITORY line on each of your servers /root/OT-Settings/config.sh to the following:"
+echo "Installation is complete! Edit the RESTIC_REPOSITORY line on each of your servers /root/OT-Settings/config.sh to the following:${N1}"
 if [[ $ANSWER == "y" ]];then
-    echo "RESTIC_REPOSITORY="rest:https://$USER:$PASS@$DOMAIN_NAME:8000/repo""
+    echo "RESTIC_REPOSITORY="rest:https://$USER:$PASS@$DOMAIN_NAME:8000/repo${N1}""
 else
-    echo "RESTIC_REPOSITORY="rest:http://$USER:$PASS@$IP_ADDRESS:8000/repo""
+    echo "RESTIC_REPOSITORY="rest:http://$USER:$PASS@$IP_ADDRESS:8000/repo${N1}""
 fi
