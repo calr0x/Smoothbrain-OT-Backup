@@ -1,0 +1,13 @@
+Description=rest-server
+Documentation=https://github.com/restic/rest-server
+After=network.target
+
+[Service]
+Type=simple
+User=root
+WorkingDirectory=/root
+ExecStart=/usr/local/bin/rest-server --path /root --tls
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target
