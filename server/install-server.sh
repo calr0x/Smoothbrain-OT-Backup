@@ -25,7 +25,17 @@ apt install apache2-utils apg
 
 read -p "Would you like to create a certificate for the server to encrypt the login credentials? Enter y/n: " ANSWER
 if [[ $ANSWER == "y" ]]; then
+
     read -p "Enter the FULL domain name for the backup server: " DOMAIN_NAME
+
+    if [[ -f /root/private_key ]]; then
+    
+        echo "Deleting existing keys"
+        rm /root/private_key
+        rm /root/public_key
+        rm //etc/letsencrypt/live/$DOMAIN_NAME/privkey.pem
+        rm //etc/letsencrypt/live/$DOMAIN_NAME/fullchain.pem
+    fi
 
     ufw allow 80 && ufw allow 443 && ufw allow 8000 && yes | ufw enable
 
