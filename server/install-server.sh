@@ -17,7 +17,7 @@ tar zxfv rest-server_0.10.0_linux_amd64.tar.gz
 mv rest-server_0.10.0_linux_amd64/rest-server /usr/local/bin
 rm -rf rest-server_0.10.0_linux_amd64
 
-cp OT-Smoothbrain-Backup/server/rest-server.service /lib/systemd/system/
+cp /root/OT-Smoothbrain-Backup/server/rest-server.service /lib/systemd/system/
 
 echo "Installing daily clean-up cronjob at noon servertime"
 (crontab -l 2>/dev/null; echo "0 12 * * * /root/OT-Smoothbrain-Backup/restic-cleanup.sh") | crontab -
