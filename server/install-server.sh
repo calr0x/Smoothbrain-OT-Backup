@@ -35,8 +35,7 @@ if [[ $ANSWER == "y" ]]; then
         echo "Deleting existing keys"
         rm /root/private_key
         rm /root/public_key
-        rm //etc/letsencrypt/live/$DOMAIN_NAME/privkey.pem
-        rm //etc/letsencrypt/live/$DOMAIN_NAME/fullchain.pem
+        rm /etc/letsencrypt/live/$DOMAIN_NAME
     fi
 
     ufw allow 80 && ufw allow 443 && ufw allow 8000 && yes | ufw enable
